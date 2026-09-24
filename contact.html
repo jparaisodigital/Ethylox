@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Ethylox Trading International Corporation for orders and medical supply inquiries.">
+  <title>Contact Us | Ethylox Trading International Corporation</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
+</head>
+
+<body data-page="contact">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Ethylox home">
+        <img data-image="brand.logo" alt="">
+        <span data-text="brand.name"></span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" data-text="navigation.home"></a>
+        <a href="index.html#products" data-text="navigation.products"></a>
+        <a href="contact.html"
+           aria-current="page"
+           data-text="navigation.contact"></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contact-main">
+    <div class="container">
+      <p class="eyebrow" data-text="contact.eyebrow"></p>
+      <h1 data-text="contact.heading"></h1>
+      <p class="contact-intro" data-text="contact.intro"></p>
+
+      <div class="contact-grid">
+        <section class="contact-card"
+                 aria-labelledby="ph-heading"
+                 data-office="ph">
+          <p class="card-label" data-text="contact.offices.ph.label"></p>
+          <h2 id="ph-heading"
+              data-text="contact.offices.ph.heading"></h2>
+          <div class="office-details"></div>
+        </section>
+
+        <section class="contact-card"
+                 aria-labelledby="us-heading"
+                 data-office="us">
+          <p class="card-label" data-text="contact.offices.us.label"></p>
+          <h2 id="us-heading"
+              data-text="contact.offices.us.heading"></h2>
+          <div class="office-details"></div>
+        </section>
+      </div>
+
+      <section class="email-panel" aria-labelledby="email-heading">
+        <div>
+          <h2 id="email-heading"
+              data-text="contact.emailPanel.heading"></h2>
+          <p data-text="contact.emailPanel.description"></p>
+        </div>
+
+        <a class="button"
+           data-email-link
+           data-text="contact.emailPanel.button"></a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span data-text="brand.fullName"></span>
+    </div>
+  </footer>
+</body>
+</html>
