@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse Ethylox product inventory.">
+  <title>Product Inventory | Ethylox</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="inventory.css">
+
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
+  <script src="inventory.js" defer></script>
+</head>
+
+<body data-page="inventory">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Ethylox home">
+        <img data-image="brand.logo" alt="">
+        <span data-text="brand.name"></span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html#products" data-text="navigation.products"></a>
+        <a href="index.html#overview" data-text="navigation.company"></a>
+        <a href="contact.html" data-text="navigation.contact"></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inventory-main">
+    <div class="container">
+      <a class="inventory-back" href="index.html#products">
+        ← All product categories
+      </a>
+
+      <div class="inventory-heading">
+        <p class="eyebrow">Product inventory</p>
+        <h1 id="inventory-title">Inventory</h1>
+        <p>
+          Browse currently listed items. Please confirm current pricing
+          and availability with our sales team.
+        </p>
+      </div>
+
+      <p
+        class="inventory-status"
+        id="inventory-status"
+        role="status"
+        aria-live="polite"
+      >
+        Loading inventory…
+      </p>
+
+      <div class="inventory-results" id="inventory-results" hidden>
+        <div class="inventory-controls">
+          <label for="inventory-size-filter">Filter by size</label>
+          <select id="inventory-size-filter">
+            <option value="">All sizes</option>
+          </select>
+        </div>
+
+        <div class="inventory-table-wrap">
+          <table class="inventory-table">
+            <thead>
+              <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Size</th>
+                <th scope="col">Needle</th>
+                <th scope="col">Code</th>
+                <th scope="col">Price / dozen</th>
+                <th scope="col">Expiry</th>
+                <th scope="col">Inquiry</th>
+              </tr>
+            </thead>
+            <tbody id="inventory-table-body"></tbody>
+          </table>
+        </div>
+
+        <div
+          class="inventory-mobile-list"
+          id="inventory-mobile-list"
+        ></div>
+      </div>
+
+      <div class="inventory-help">
+        <div>
+          <h2>Need a different item?</h2>
+          <p>
+            Ask our team about product specifications, availability,
+            and current pricing.
+          </p>
+        </div>
+
+        <a class="button button-dark" href="contact.html">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span data-text="brand.fullName"></span>
+    </div>
+  </footer>
+</body>
+</html>

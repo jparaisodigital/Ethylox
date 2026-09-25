@@ -74,22 +74,20 @@
     if (!grid) return;
 
     config.home.products.forEach((product) => {
-      const href = safeUrl(product.href, "href");
-      const card = document.createElement(href ? "a" : "article");
+      const card = document.createElement("a");
 
       card.className = "product-card";
-      if (href) card.href = href;
-
-      card.style.setProperty("--card-bg", product.bg);
+      card.href = `inventory.html?category=${encodeURIComponent(product.name)}`;
+      card.setAttribute("aria-label", `View ${product.name} inventory`);
       card.style.setProperty("--card-accent", product.accent);
-
-      const label = document.createElement("small");
-      label.textContent = product.category;
 
       const heading = document.createElement("h3");
       heading.textContent = product.name;
 
-      card.append(label, heading);
+      const label = document.createElement("small");
+      label.textContent = product.category;
+
+      card.append(heading, label);
       grid.append(card);
     });
   }
@@ -167,6 +165,7 @@
 
   function initScrollMotion() {
     if (!("IntersectionObserver" in window)) return;
+
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
@@ -188,10 +187,12 @@
     groups.forEach((selector) => {
       document.querySelectorAll(selector).forEach((element, index) => {
         element.classList.add("reveal-item");
+
         element.style.setProperty(
           "--reveal-delay",
           `${Math.min(index, 4) * 70}ms`
         );
+
         targets.push(element);
       });
     });
