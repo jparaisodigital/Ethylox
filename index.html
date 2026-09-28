@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ethylox Trading International Corporation — medical supplies and surgical sutures.">
+  <title>Ethylox Trading International Corporation</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
+</head>
+
+<body data-page="home">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Ethylox home">
+        <img data-image="brand.logo" alt="">
+        <span data-text="brand.name"></span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#products" data-text="navigation.products"></a>
+        <a href="#overview" data-text="navigation.company"></a>
+        <a href="contact.html" data-text="navigation.contact"></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow" data-text="home.hero.eyebrow"></p>
+          <h1 data-text="home.hero.heading"></h1>
+          <p class="hero-copy" data-text="home.hero.description"></p>
+
+          <div class="actions">
+            <a
+              class="button button-dark"
+              href="#products"
+              data-text="home.hero.productButton"
+            ></a>
+            <a
+              class="button button-light"
+              href="#contact"
+              data-text="home.hero.contactButton"
+            ></a>
+          </div>
+
+          <div class="hero-facts" aria-label="Company information">
+            <div class="hero-fact">
+              <strong data-text="home.hero.establishedValue"></strong>
+              <span data-text="home.hero.establishedLabel"></span>
+            </div>
+            <div class="hero-fact">
+              <strong data-text="home.hero.officeValue"></strong>
+              <span data-text="home.hero.officeLabel"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-logo-stage">
+            <img data-image="brand.logo" alt="">
+          </div>
+          <span class="hero-art-label" data-text="brand.fullName"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase" aria-labelledby="showcase-title">
+      <div class="container">
+        <div class="showcase-heading">
+          <p class="eyebrow" data-text="home.gallery.eyebrow"></p>
+          <h2 id="showcase-title" data-text="home.gallery.heading"></h2>
+          <p data-text="home.gallery.description"></p>
+        </div>
+    
+        <div class="showcase-grid" id="showcase-grid"></div>
+      </div>
+    </section>
+    
+    <section class="products" id="products">
+      <div class="container">
+        <div class="section-heading">
+          <h2 data-text="home.productSection.heading"></h2>
+          <p data-text="home.productSection.description"></p>
+        </div>
+    
+        <div class="product-grid" id="product-grid"></div>
+      </div>
+    </section>
+
+    <section class="overview" id="overview">
+      <div class="container overview-grid">
+        <div>
+          <p class="eyebrow" data-text="home.company.eyebrow"></p>
+          <h2 data-text="home.company.heading"></h2>
+        </div>
+
+        <div id="company-paragraphs"></div>
+      </div>
+    </section>
+
+    <section
+      class="home-contact"
+      id="contact"
+      aria-labelledby="contact-heading"
+    >
+      <div class="container inquiry-layout">
+        <div class="inquiry-copy">
+          <p class="eyebrow" data-text="home.contactCta.eyebrow"></p>
+          <h2 id="contact-heading" data-text="home.contactCta.heading"></h2>
+          <p data-text="home.contactCta.description"></p>
+          <a
+            class="button"
+            data-email-link
+            data-text="home.contactCta.button"
+          ></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="footer-buyback">
+        <span data-text="home.buyback.text"></span>
+        <a
+          data-email-link
+          data-email-subject="home.buyback.emailSubject"
+          data-text="home.buyback.linkText"
+        ></a>
+      </p>
+      © <span data-text="brand.fullName"></span>
+    </div>
+  </footer>
+</body>
+</html>
