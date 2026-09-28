@@ -44,39 +44,47 @@ window.ETHYLOX_CONFIG = {
       {
         name: "Vicryl",
         category: "Surgical sutures",
-        accent: "#78509b"
+        accent: "#78509b",
+        image: "assets/vicryl.jpg"
       },
       {
         name: "Prolene",
         category: "Surgical sutures",
-        accent: "#5e6cb3"
+        accent: "#5e6cb3",
+        image: "assets/prolene.jpg"
       },
       {
         name: "Ethilon",
         category: "Surgical sutures",
-        accent: "#64864f"
+        accent: "#64864f",
+        image: "assets/ethilon.jpg"
       },
       {
         name: "Chromic",
         category: "Surgical sutures",
-        accent: "#888235"
+        accent: "#888235",
+        image: "assets/chromic.jpg"
       },
       {
         name: "Silk and Plain",
         category: "Surgical sutures",
-        accent: "#a4773b"
+        accent: "#a4773b",
+        image: "assets/silk-plain.jpg"
       },
       {
         name: "Monocryl / PDS",
         category: "Surgical sutures",
-        accent: "#3f8077"
+        accent: "#3f8077",
+        image: "assets/monocryl-pds.jpg"
       },
       {
         name: "Endosurgery Products",
         category: "Harmonic Technology",
-        accent: "#9b5660"
+        accent: "#9b5660",
+        image: "assets/endosurgery.jpg"
       }
     ],
+
 
     gallery: {
       eyebrow: "Product Gallery",

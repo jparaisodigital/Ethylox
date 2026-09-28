@@ -926,3 +926,28 @@ h2 {
     transition: none;
   }
 }
+
+/* Product category card art (top-right image) */
+.product-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card-art {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40%;
+  max-width: 128px;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: multiply; /* blends the image's white background into the card */
+}
+
+.product-card h3,
+.product-card small {
+  position: relative;
+  z-index: 1; /* keep text above the art */
+}

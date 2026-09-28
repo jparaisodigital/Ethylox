@@ -81,6 +81,20 @@
       card.setAttribute("aria-label", `View ${product.name} inventory`);
       card.style.setProperty("--card-accent", product.accent);
 
+            // Category card art (top-right image)
+            const art = document.createElement("img");
+            const artSrc = safeUrl(product.image, "image");
+      
+            if (artSrc) {
+              art.className = "product-card-art";
+              art.src = artSrc;
+              art.alt = "";
+              art.setAttribute("aria-hidden", "true");
+              art.loading = "lazy";
+              card.append(art);
+            }
+      
+
       const heading = document.createElement("h3");
       heading.textContent = product.name;
 
