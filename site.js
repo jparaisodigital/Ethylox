@@ -392,4 +392,16 @@
       }
     }
   }
-})(); 
+
+    // Fix for Back-Forward Cache (bfcache) issue
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+       
+        if (pageLoader) {
+          pageLoader.classList.remove('active');
+        }
+        
+        initScrollMotion();
+      }
+    });
+})();
