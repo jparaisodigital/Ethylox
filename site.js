@@ -325,32 +325,35 @@
       });
     }
 
-    // Page Loader Trigger for Product Cards
-    const pageLoader = document.getElementById('page-loader');
-    const productCards = document.querySelectorAll('.product-card');
-  
-    if (pageLoader && productCards.length > 0) {
-      productCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-          e.preventDefault();
-          pageLoader.classList.add('active');
-          
-          const targetUrl = card.getAttribute('href');
-          
-          setTimeout(() => {
-            window.location.href = targetUrl;
-          }, 800);
-        });
-      });
-    }
-  
-    // Ensure loader is hidden when a new page finishes loading
-    window.addEventListener('load', () => {
-      if (pageLoader) {
-        setTimeout(() => {
-          pageLoader.classList.remove('active');
-        }, 200);
-      }
+      // Unified Page Loader Trigger (Product Cards + Contact Links)
+  const pageLoader = document.getElementById('page-loader');
+
+  if (pageLoader) {
+    const handleNavigation = (e) => {
+      e.preventDefault(); 
+      pageLoader.classList.add('active'); 
+      
+      const targetUrl = e.currentTarget.getAttribute('href');
+      
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 800);
+    };
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', handleNavigation);
     });
+
+    document.querySelectorAll('a[href="contact.html"]').forEach(link => {
+      link.addEventListener('click', handleNavigation);
+    });
+  }
+  window.addEventListener('load', () => {
+    if (pageLoader) {
+      setTimeout(() => {
+        pageLoader.classList.remove('active');
+      }, 200);
+    }
+  });
 
 })();
