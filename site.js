@@ -166,14 +166,36 @@
   }
 
   function renderCompany() {
-    const container = document.querySelector("#company-paragraphs");
-    if (!container) return;
-
-    config.home.company.paragraphs.forEach((text) => {
-      const paragraph = document.createElement("p");
-      paragraph.textContent = text;
-      container.append(paragraph);
-    });
+    const paragraphsContainer = document.querySelector("#company-paragraphs");
+    if (paragraphsContainer) {
+      config.home.company.paragraphs.forEach((text) => {
+        const paragraph = document.createElement("p");
+        paragraph.textContent = text;
+        paragraphsContainer.append(paragraph);
+      });
+    }
+  
+    const valuesContainer = document.querySelector("#company-values");
+    if (valuesContainer && config.home.company.values) {
+      const icons = {
+        shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>',
+        users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
+        globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
+        clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
+      };
+  
+      config.home.company.values.forEach((value) => {
+        const card = document.createElement("div");
+        card.className = "value-card-integrated";
+        const svg = icons[value.icon] || icons.shield;
+        card.innerHTML = `
+          <div class="value-icon">${svg}</div>
+          <h3>${value.title}</h3>
+          <p>${value.description}</p>
+        `;
+        valuesContainer.append(card);
+      });
+    }
   }
 
   function renderOffices() {
@@ -224,7 +246,7 @@
       ".section-heading > *, .showcase-heading > *",
       ".product-grid > .product-card",
       ".showcase-grid > .showcase-item",
-      ".overview-grid > *",
+      ".overview-header > *, .overview-content > #company-paragraphs > p, .values-grid-integrated > .value-card-integrated",
       ".home-contact .inquiry-copy",
       ".contact-main > .container > .eyebrow, .contact-main > .container > h1, .contact-main > .container > .contact-intro",
       ".contact-grid > .contact-card",

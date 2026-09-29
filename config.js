@@ -117,6 +117,28 @@ window.ETHYLOX_CONFIG = {
       paragraphs: [
         "Ethylox Trading International Corporation was founded in 1978 and is based in the Philippines. The company supplies laboratory and medical products, including surgical sutures and X-ray accessories.",
         "Since 2018, Ethylox has expanded its product range and established Ethylox Equipment Corporation to serve a broader range of medical and equipment needs."
+      ],
+      values: [
+        {
+          icon: "shield",
+          title: "Quality Assurance",
+          description: "Rigorous quality standards for every medical product."
+        },
+        {
+          icon: "users",
+          title: "Trusted Partnership",
+          description: "45+ years serving hospitals and clinics worldwide."
+        },
+        {
+          icon: "globe",
+          title: "Global Standards",
+          description: "International sourcing with local expertise."
+        },
+        {
+          icon: "clock",
+          title: "Reliable Supply",
+          description: "Consistent availability of critical medical supplies."
+        }
       ]
     },
 
