@@ -27,7 +27,7 @@
   </header>
 
   <main class="home-main">
-    
+
     <!-- 1. HERO SECTION -->
     <section class="hero">
       <div class="container hero-grid">
@@ -89,17 +89,24 @@
     <section class="overview" id="overview">
       <div class="container">
         <div class="overview-grid">
-          <!-- Left Column: Sticky Heading -->
-          <div class="overview-header">
-            <p class="eyebrow" data-text="home.company.eyebrow"></p>
-            <h2 data-text="home.company.heading"></h2>
-          </div>
-          
-          <!-- Right Column: Scrollable Content -->
+
+                 <!-- LEFT SIDE: Sticky Text + Clean Image -->
+                 <div class="overview-left-panel">
+                  <div class="overview-sticky-text">
+                    <p class="eyebrow" data-text="home.company.eyebrow"></p>
+                    <h2 data-text="home.company.heading"></h2>
+                  </div>
+                  <div class="overview-image-container">
+                    <img src="assets/ethylox-logo.png" alt="Ethylox Logo">
+                  </div>
+                </div>
+
+          <!-- RIGHT SIDE: Content -->
           <div class="overview-content">
             <div id="company-paragraphs"></div>
             <div id="company-values" class="values-grid-integrated"></div>
           </div>
+
         </div>
       </div>
     </section>
