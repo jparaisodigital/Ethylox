@@ -232,6 +232,9 @@
     document.documentElement.classList.add("motion-ready");
   }
 
+
+  window.scrollTo(0, 0);
+
   bindFields();
 
   if (page === "home") {

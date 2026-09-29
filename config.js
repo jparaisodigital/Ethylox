@@ -45,7 +45,7 @@ window.ETHYLOX_CONFIG = {
         name: "Vicryl",
         category: "Surgical sutures",
         accent: "#78509b",
-        image: "assets/vicryl.png"         
+        image: "assets/vicryl.jpg"         
       },
       {
         name: "Prolene",
@@ -69,7 +69,7 @@ window.ETHYLOX_CONFIG = {
         name: "Silk and Plain",
         category: "Surgical sutures",
         accent: "#a4773b",
-        image: "assets/silk-plain.png"     
+        image: "assets/silk-plain.jpg"     
       },
       {
         name: "Monocryl / PDS",

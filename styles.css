@@ -97,7 +97,8 @@ h1, h2, h3, p { margin-top: 0; }
 }
 
 .nav a:active {
-  transform: translateY(1px);
+  transform: scale(0.95);
+  opacity: 0.85;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -961,4 +962,30 @@ h2 {
 .product-card small {
   position: relative;
   z-index: 1; /* keep text above the art */
+}
+
+/* Smooth page load animation */
+@media (prefers-reduced-motion: no-preference) {
+  .home-main, 
+  .contact-main, 
+  .inventory-main {
+    animation: ethyloxPageIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes ethyloxPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced nav link click feedback */
+.nav a:active {
+  transform: scale(0.95);
+  opacity: 0.85;
 }
