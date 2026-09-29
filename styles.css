@@ -1202,3 +1202,43 @@ h2 {
   outline: 2px solid var(--red);
   outline-offset: 4px;
 }
+
+/* Page Loader Overlay */
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--paper); /* Or var(--white) kung gusto mong puti */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.page-loader.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loader-logo {
+  width: 120px; /* Adjust size kung gusto mo mas malaki/maliit */
+  height: auto;
+  animation: breathe 1.8s ease-in-out infinite;
+}
+
+/* Breathing Animation */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
