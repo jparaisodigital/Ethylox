@@ -325,35 +325,34 @@
       });
     }
 
-      // Unified Page Loader Trigger (Product Cards + Contact Links)
-  const pageLoader = document.getElementById('page-loader');
-
-  if (pageLoader) {
-    const handleNavigation = (e) => {
-      e.preventDefault(); 
-      pageLoader.classList.add('active'); 
-      
-      const targetUrl = e.currentTarget.getAttribute('href');
-      
-      setTimeout(() => {
-        window.location.href = targetUrl;
-      }, 800);
-    };
-
-    document.querySelectorAll('.product-card').forEach(card => {
-      card.addEventListener('click', handleNavigation);
-    });
-
-    document.querySelectorAll('a[href="contact.html"]').forEach(link => {
-      link.addEventListener('click', handleNavigation);
-    });
-  }
-  window.addEventListener('load', () => {
+    // Unified Page Loader Trigger (Product Cards + Contact Links)
+    const pageLoader = document.getElementById('page-loader');
     if (pageLoader) {
-      setTimeout(() => {
-        pageLoader.classList.remove('active');
-      }, 200);
+      const handleNavigation = (e) => {
+        e.preventDefault();
+        pageLoader.classList.add('active');
+        const targetUrl = e.currentTarget.getAttribute('href');
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 300);
+      };
+  
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', handleNavigation);
+      });
+  
+      document.querySelectorAll('a[href="contact.html"]').forEach(link => {
+        link.addEventListener('click', handleNavigation);
+      });
     }
-  });
+  
+    // Ensure loader is hidden when a new page finishes loading (safety net)
+    window.addEventListener('load', () => {
+      if (pageLoader) {
+        setTimeout(() => {
+          pageLoader.classList.remove('active');
+        }, 200);
+      }
+    });
 
 })();
