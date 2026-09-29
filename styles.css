@@ -951,7 +951,7 @@ h2 {
   line-height: 1.08;
   letter-spacing: -.045em;
   color: var(--ink);
-  margin-bottom: 24px; 
+  margin-bottom: 24px;
   text-transform: none;
 }
 
@@ -1032,7 +1032,10 @@ h2 {
 
 @media (max-width: 520px) {
   .container { width: min(1160px, calc(100% - 32px)); }
-  .header-inner { flex-direction: column; align-items: stretch; gap: 14px; }
+  .header-inner { flex-direction: row !important; align-items: center !important; justify-content: space-between !important; padding: 12px 0; }
+  .brand { flex-shrink: 0; }
+  .brand img { width: 40px; height: 40px; }
+  .header-right-group { margin-left: auto; }
   .product-grid, .showcase-grid { grid-template-columns: 1fr; }
   .product-grid .product-card { grid-column: auto; min-height: 155px; }
   .product-grid .product-card:nth-child(7) .product-card-art { top: 24px; right: 24px; width: 40%; max-width: 128px; }
