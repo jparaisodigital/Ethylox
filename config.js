@@ -89,6 +89,7 @@ window.ETHYLOX_CONFIG = {
       eyebrow: "Product Gallery",
       heading: "A closer look at our range.",
       description: "Explore the medical and surgical categories featured by Ethylox.",
+      descriptionMobile: "View our medical and surgical products.",
       items: [
         {
           name: "Surgical Sutures",

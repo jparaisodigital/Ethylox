@@ -17,15 +17,46 @@
 <body data-page="inventory">
   <header class="site-header">
     <div class="container header-inner">
+      <!-- Logo (Left) -->
       <a class="brand" href="index.html" aria-label="Ethylox home">
         <img data-image="brand.logo" alt="">
         <span data-text="brand.name"></span>
       </a>
 
-      <nav class="nav" aria-label="Main navigation">
+      <!-- Right Side Group (Nav + Email) -->
+      <div class="header-right-group">
+        
+        <!-- Desktop Navigation -->
+        <nav class="nav desktop-nav" aria-label="Main navigation">
+          <a href="index.html#products" data-text="navigation.products"></a>
+          <a href="index.html#overview" data-text="navigation.company"></a>
+          <a href="contact.html" data-text="navigation.contact"></a>
+        </nav>
+
+        <!-- Desktop Email Button -->
+        <a class="header-email-btn" href="contact.html" aria-label="Contact Us">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div class="mobile-nav-dropdown">
+      <nav class="mobile-nav" aria-label="Mobile navigation">
         <a href="index.html#products" data-text="navigation.products"></a>
         <a href="index.html#overview" data-text="navigation.company"></a>
         <a href="contact.html" data-text="navigation.contact"></a>
+        <a class="mobile-email-btn" href="contact.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Email Us</span>
+        </a>
       </nav>
     </div>
   </header>

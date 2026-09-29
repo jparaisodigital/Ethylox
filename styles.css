@@ -30,6 +30,9 @@ h1, h2, h3, p { margin-top: 0; }
 /* Shared header and footer */
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   background: var(--white);
   border-bottom: 1px solid var(--line);
 }
@@ -49,6 +52,8 @@ h1, h2, h3, p { margin-top: 0; }
   font-size: 15px;
   font-weight: 700;
   letter-spacing: .02em;
+  text-decoration: none;
+  color: var(--ink);
 }
 
 .brand img {
@@ -57,21 +62,29 @@ h1, h2, h3, p { margin-top: 0; }
   object-fit: contain;
 }
 
-.nav {
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.desktop-nav {
   display: flex;
   gap: 30px;
   color: #414141;
   font-size: 14px;
 }
 
-.nav a {
+.desktop-nav a {
   position: relative;
   display: inline-block;
   padding-block: 8px;
+  text-decoration: none;
+  color: inherit;
   transition: color 220ms ease, transform 180ms ease;
 }
 
-.nav a::after {
+.desktop-nav a::after {
   content: "";
   position: absolute;
   right: 0;
@@ -84,28 +97,129 @@ h1, h2, h3, p { margin-top: 0; }
   transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
 }
 
-.nav a:hover,
-.nav a:focus-visible,
-.nav a[aria-current="page"] {
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible {
   color: var(--red);
 }
 
-.nav a:hover::after,
-.nav a:focus-visible::after,
-.nav a[aria-current="page"]::after {
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after {
   transform: scaleX(1);
 }
 
-.nav a:active {
+.desktop-nav a:active {
   transform: scale(0.95);
   opacity: 0.85;
 }
 
+.header-email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--red);
+  border-radius: 12px;
+  color: var(--white);
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.header-email-btn:hover {
+  transform: translateY(-2px);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--ink);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle.open .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.mobile-menu-toggle.open .hamburger-line:nth-child(2) { opacity: 0; }
+.mobile-menu-toggle.open .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.mobile-nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--line);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  z-index: 999;
+}
+
+.mobile-nav-dropdown.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 8px;
+}
+
+.mobile-nav a:not(.mobile-email-btn) {
+  display: block;
+  padding: 16px 20px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  border-left: 4px solid transparent;
+}
+
+.mobile-nav a:not(.mobile-email-btn):hover {
+  border-left-color: var(--red);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.mobile-email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  background-color: var(--red);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .nav a,
-  .nav a::after {
-    transition: none;
-  }
+  .desktop-nav a, .desktop-nav a::after { transition: none; }
+}
+
+@media (max-width: 900px) {
+  .header-inner { flex-direction: row; flex-wrap: nowrap; }
+  .desktop-nav, .header-email-btn { display: none; }
+  .mobile-menu-toggle { display: flex; }
+  .header-right-group { gap: 0; margin-left: auto; }
 }
 
 footer {
@@ -1361,4 +1475,227 @@ h2 {
   .values-grid-integrated {
     grid-template-columns: 1fr;
   }
+}
+
+/* Gallery Description - Desktop vs Mobile */
+.gallery-desc-mobile {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .gallery-desc-desktop {
+    display: none;
+  }
+  .gallery-desc-mobile {
+    display: block;
+  }
+}
+
+/* Header Layout Updates */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Logo sa kaliwa, Group sa kanan */
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Grouping Nav and Email Button to the Right */
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 32px; /* Distance between Nav Links and Email Button */
+}
+
+/* Desktop Navigation Links */
+.desktop-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.desktop-nav a {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+/* Red Underline Hover Effect */
+.desktop-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.desktop-nav a:hover::after,
+.desktop-nav a:active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Desktop Email Button (Styled Red Rounded Square) */
+.header-email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--red);
+  border-radius: 12px;
+  color: var(--white);
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.header-email-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.header-email-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(220, 38, 38, 0.25);
+}
+
+/* Mobile Menu Toggle (Hidden on Desktop) */
+.mobile-menu-toggle {
+  display: none; /* Hidden by default on desktop */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 6px;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--ink);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hamburger to X Animation */
+.mobile-menu-toggle.open .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.mobile-menu-toggle.open .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.mobile-menu-toggle.open .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Mobile Dropdown */
+.mobile-nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1000;
+  border-top: 1px solid var(--line);
+}
+
+.mobile-nav-dropdown.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 8px;
+}
+
+/* Mobile Links */
+.mobile-nav a:not(.mobile-email-btn) {
+  display: block;
+  padding: 16px 20px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav a:not(.mobile-email-btn):hover {
+  border-left-color: var(--red);
+  background-color: rgba(0, 0, 0, 0.02);
+  padding-left: 24px;
+}
+
+/* Mobile Email Button */
+.mobile-email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  background-color: var(--red);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.mobile-email-btn:hover { transform: translateY(-2px); }
+
+/* Responsive: Mobile View (< 900px) */
+@media (max-width: 900px) {
+  .header-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; 
+  }
+
+  .brand {
+    flex-shrink: 0;
+  }
+
+  .header-right-group {
+    margin-left: auto; 
+    gap: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hide Desktop Elements */
+  .desktop-nav,
+  .header-email-btn {
+    display: none;
+  }
+
+  /* Show Hamburger */
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+.mobile-email-btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }

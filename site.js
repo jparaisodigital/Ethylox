@@ -306,4 +306,22 @@
   }
 
   initScrollMotion();
+
+    // Mobile Menu Toggle Logic
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileDropdown = document.querySelector('.mobile-nav-dropdown');
+  
+    if (menuToggle && mobileDropdown) {
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('open');
+        mobileDropdown.classList.toggle('active');
+      });
+  
+      document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuToggle.classList.remove('open');
+          mobileDropdown.classList.remove('active');
+        });
+      });
+    }
 })();
