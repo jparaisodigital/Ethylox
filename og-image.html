@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG Image</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a1a;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .og-card {
+      width: 1200px;
+      height: 630px;
+      background: #f8f7f4;
+      display: flex;
+      align-items: center;
+      padding: 60px 80px;
+      gap: 60px;
+      position: relative;
+    }
+    .og-logo {
+      flex-shrink: 0;
+      width: 320px;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .og-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .og-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .og-brand {
+      font-size: 42px;
+      font-weight: 900;
+      color: #191919;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .og-brand span { color: #d7192f; }
+    .og-tagline {
+      font-size: 28px;
+      font-weight: 700;
+      color: #d7192f;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+    .og-description {
+      font-size: 20px;
+      color: #666461;
+      line-height: 1.5;
+      max-width: 500px;
+    }
+    .og-card::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: #d7192f;
+    }
+    .og-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 120px;
+      background: #d7192f;
+    }
+  </style>
+</head>
+<body>
+  <div class="og-card">
+    <div class="og-logo">
+      <img src="assets/ethylox-logo.png" alt="Ethylox Logo">
+    </div>
+    <div class="og-text">
+      <div class="og-brand">ETHYLOX <span>EQUIPMENT</span> CORPORATION</div>
+      <div class="og-tagline">Surplus US Medical Supplies</div>
+      <div class="og-description">Surgical sutures and medical supplies for clinics, hospitals, and distributors. Established 1978.</div>
+    </div>
+  </div>
+</body>
+</html>
