@@ -322,10 +322,19 @@ h2 {
   margin-bottom: 34px;
 }
 
-.section-heading > p:last-child,
 .overview p {
   color: var(--muted);
   line-height: 1.75;
+}
+
+.products .section-heading > p:last-child {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-bottom: 34px;
 }
 
 .products .section-heading h2 {
@@ -383,7 +392,7 @@ h2 {
 }
 
 .product-card h3 {
-  margin: 0 0 14px;
+  margin: auto 0 14px 0;
   font-size: clamp(19px, 1.7vw, 25px);
   line-height: 1.25;
   letter-spacing: -.035em;
@@ -406,11 +415,36 @@ h2 {
 }
 
 .showcase-heading {
-  max-width: 640px;
-  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  max-width: 900px; 
+  margin-bottom: 48px;
 }
 
-.showcase-heading > p:last-child,
+.showcase-heading > p:last-child {
+  order: 1;
+  font-size: 44px; 
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.showcase-heading .eyebrow {
+  order: 2;
+  margin-bottom: 0;
+}
+
+.showcase-heading h2 {
+  display: none;
+}
+
+.showcase-note {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .showcase-note {
   color: var(--muted);
   line-height: 1.7;

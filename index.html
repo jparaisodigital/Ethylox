@@ -27,6 +27,8 @@
   </header>
 
   <main class="home-main">
+    
+    <!-- 1. HERO SECTION -->
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-content">
@@ -35,16 +37,8 @@
           <p class="hero-copy" data-text="home.hero.description"></p>
 
           <div class="actions">
-            <a
-              class="button button-dark"
-              href="#products"
-              data-text="home.hero.productButton"
-            ></a>
-            <a
-              class="button button-light"
-              href="#contact"
-              data-text="home.hero.contactButton"
-            ></a>
+            <a class="button button-dark" href="#products" data-text="home.hero.productButton"></a>
+            <a class="button button-light" href="#contact" data-text="home.hero.contactButton"></a>
           </div>
 
           <div class="hero-facts" aria-label="Company information">
@@ -68,6 +62,7 @@
       </div>
     </section>
 
+    <!-- 2. PRODUCT GALLERY -->
     <section class="showcase" aria-labelledby="showcase-title">
       <div class="container">
         <div class="showcase-heading">
@@ -75,62 +70,53 @@
           <h2 id="showcase-title" data-text="home.gallery.heading"></h2>
           <p data-text="home.gallery.description"></p>
         </div>
-    
         <div class="showcase-grid" id="showcase-grid"></div>
       </div>
     </section>
-    
+
+    <!-- 3. PRODUCT CATEGORIES -->
     <section class="products" id="products">
       <div class="container">
         <div class="section-heading">
           <h2 data-text="home.productSection.heading"></h2>
           <p data-text="home.productSection.description"></p>
         </div>
-    
         <div class="product-grid" id="product-grid"></div>
       </div>
     </section>
 
+    <!-- 4. ABOUT ETHYLOX (OVERVIEW) - ITO YUNG NAWALA, SORRY PARE! -->
     <section class="overview" id="overview">
-      <div class="container overview-grid">
-        <div>
-          <p class="eyebrow" data-text="home.company.eyebrow"></p>
-          <h2 data-text="home.company.heading"></h2>
+      <div class="container">
+        <div class="overview-grid">
+          <div>
+            <p class="eyebrow" data-text="home.company.eyebrow"></p>
+            <h2 data-text="home.company.heading"></h2>
+          </div>
+          <div id="company-paragraphs"></div>
         </div>
-
-        <div id="company-paragraphs"></div>
       </div>
     </section>
 
-    <section
-      class="home-contact"
-      id="contact"
-      aria-labelledby="contact-heading"
-    >
+    <!-- 5. CONTACT CTA -->
+    <section class="home-contact" id="contact" aria-labelledby="contact-heading">
       <div class="container inquiry-layout">
         <div class="inquiry-copy">
           <p class="eyebrow" data-text="home.contactCta.eyebrow"></p>
           <h2 id="contact-heading" data-text="home.contactCta.heading"></h2>
           <p data-text="home.contactCta.description"></p>
-          <a
-            class="button"
-            data-email-link
-            data-text="home.contactCta.button"
-          ></a>
+          <a class="button" data-email-link data-text="home.contactCta.button"></a>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
     <div class="container">
       <p class="footer-buyback">
         <span data-text="home.buyback.text"></span>
-        <a
-          data-email-link
-          data-email-subject="home.buyback.emailSubject"
-          data-text="home.buyback.linkText"
-        ></a>
+        <a data-email-link data-email-subject="home.buyback.emailSubject" data-text="home.buyback.linkText"></a>
       </p>
       © <span data-text="brand.fullName"></span>
     </div>

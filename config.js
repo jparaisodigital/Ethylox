@@ -3,7 +3,7 @@
 window.ETHYLOX_CONFIG = {
   brand: {
     name: "ETHYLOX",
-    fullName: "Ethylox Trading International Corporation",
+    fullName: "ETHYLOX EQUIPMENT CORPORATION",
     logo: "assets/ethylox-logo.png",
     email: "sales@ethylox.com"
   },
@@ -51,19 +51,19 @@ window.ETHYLOX_CONFIG = {
         name: "Prolene",
         category: "Surgical sutures",
         accent: "#5e6cb3",
-        image: "assets/prolene.png"        
+        image: "assets/prolene.jpg"        
       },
       {
         name: "Ethilon",
         category: "Surgical sutures",
         accent: "#64864f",
-        image: "assets/ethilon.png"        
+        image: "assets/ethilon.jpg"        
       },
       {
         name: "Chromic",
         category: "Surgical sutures",
         accent: "#888235",
-        image: "assets/chromic.png"         
+        image: "assets/chromic.jpg"         
       },
       {
         name: "Silk and Plain",
@@ -75,13 +75,13 @@ window.ETHYLOX_CONFIG = {
         name: "Monocryl / PDS",
         category: "Surgical sutures",
         accent: "#3f8077",
-        image: "assets/monocryl-pds.png"   
+        image: "assets/monocryl-pds.jpg"   
       },
       {
         name: "Endosurgery Products",
         category: "Harmonic Technology",
         accent: "#9b5660",
-        image: "assets/endosurgery.png"    
+        image: "assets/endosurgery.jpg"    
       }
     ],
 
@@ -91,22 +91,22 @@ window.ETHYLOX_CONFIG = {
       description: "Explore the medical and surgical categories featured by Ethylox.",
       items: [
         {
-          name: "X-ray Accessories",
-          description: "Protective accessories and related supplies.",
-          image: "assets/gallery1.png",
-          alt: "Illustrative X-ray protective accessories"
-        },
-        {
-          name: "Medical Supplies",
-          description: "Medical essentials and instruments.",
-          image: "assets/gallery2.png",
-          alt: "Illustrative medical supplies and instruments"
-        },
-        {
           name: "Surgical Sutures",
           description: "Suture lines for different clinical needs.",
           image: "assets/gallery3.png",
-          alt: "Illustrative surgical needle and suture"
+          alt: "Surgical sutures and needles"
+        },
+        {
+          name: "Medical Equipment",
+          description: "Parts and accessories.",
+          image: "assets/medical.jpg",
+          alt: "Medical equipment and accessories"
+        },
+        {
+          name: "Endosurgery Products",
+          description: "Harmonic Technology.",
+          image: "assets/endo.jpg",
+          alt: "Endosurgery products and harmonic technology"
         }
       ]
     },
