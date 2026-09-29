@@ -346,7 +346,6 @@
       });
     }
   
-    // Ensure loader is hidden when a new page finishes loading (safety net)
     window.addEventListener('load', () => {
       if (pageLoader) {
         setTimeout(() => {
@@ -355,4 +354,42 @@
       }
     });
 
-})();
+  if (page === "home") {
+    const endpoint = config.inventory?.endpoint;
+    if (endpoint?.startsWith("https://script.google.com/macros/s/")) {
+      const CACHE_KEY_DATA = "ethylox_inventory_data";
+      const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
+      const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+      const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
+      const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
+      let needsFetch = true;
+
+      if (cachedDataStr && cachedTimeStr) {
+        const cachedTime = parseInt(cachedTimeStr, 10);
+        if (Date.now() - cachedTime < CACHE_DURATION) {
+          needsFetch = false;
+        }
+      }
+
+      if (needsFetch) {
+        const callbackName = "ethyloxInventoryReceive";
+        const script = document.createElement("script");
+        
+        window[callbackName] = (data) => {
+          if (data && data.success) {
+           
+            localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
+            localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
+          }
+          
+          script.remove();
+          delete window[callbackName];
+        };
+
+        script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
+        document.head.append(script);
+      }
+    }
+  }
+})(); 

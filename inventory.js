@@ -336,7 +336,7 @@
       status.textContent =
         "Inventory is taking too long to load. Please refresh or contact sales.";
     }
-  }, 15000);
+  }, 25000);
 
   window[callbackName] = (data) => {
     if (finished) return;
