@@ -325,34 +325,48 @@
       });
     }
 
-    // Unified Page Loader Trigger (Product Cards + Contact Links)
-    const pageLoader = document.getElementById('page-loader');
-    if (pageLoader) {
-      const handleNavigation = (e) => {
-        e.preventDefault();
-        pageLoader.classList.add('active');
-        const targetUrl = e.currentTarget.getAttribute('href');
-        setTimeout(() => {
-          window.location.href = targetUrl;
-        }, 300);
-      };
-  
-      document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('click', handleNavigation);
-      });
-  
-      document.querySelectorAll('a[href="contact.html"]').forEach(link => {
-        link.addEventListener('click', handleNavigation);
-      });
-    }
-  
-    window.addEventListener('load', () => {
-      if (pageLoader) {
-        setTimeout(() => {
-          pageLoader.classList.remove('active');
-        }, 200);
+      // Unified Page Loader Trigger (All Navigation Links)
+  const pageLoader = document.getElementById('page-loader');
+  if (pageLoader) {
+    const handleNavigation = (e) => {
+      const href = e.currentTarget.getAttribute('href');
+      if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) {
+        return;
       }
+      
+      e.preventDefault();
+      pageLoader.classList.add('active');
+      
+      setTimeout(() => {
+        window.location.href = href;
+      }, 1000);
+    };
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', handleNavigation);
     });
+
+    document.querySelectorAll('.desktop-nav a[href]').forEach(link => {
+      link.addEventListener('click', handleNavigation);
+    });
+
+    document.querySelectorAll('.mobile-nav a[href]').forEach(link => {
+      link.addEventListener('click', handleNavigation);
+    });
+
+    document.querySelectorAll('.header-email-btn, .mobile-email-btn').forEach(btn => {
+      btn.addEventListener('click', handleNavigation);
+    });
+  }
+
+  // Ensure loader is hidden when a new page finishes loading (safety net)
+  window.addEventListener('load', () => {
+    if (pageLoader) {
+      setTimeout(() => {
+        pageLoader.classList.remove('active');
+      }, 200);
+    }
+  });
 
   if (page === "home") {
     const endpoint = config.inventory?.endpoint;
