@@ -544,9 +544,9 @@ h2 {
   z-index: 1;
 }
 
-.product-card:nth-child(5) { grid-column: 3 / span 3; }
-.product-card:nth-child(6) { grid-column: 6 / span 3; }
-.product-card:nth-child(7) { grid-column: 9 / span 3; }
+.product-card:nth-child(5) { grid-column: 2 / span 3; }
+.product-card:nth-child(6) { grid-column: 5 / span 3; }
+.product-card:nth-child(7) { grid-column: 8 / span 3; }
 
 .product-card-art {
   position: absolute;
@@ -982,40 +982,168 @@ h2 {
   .header-inner { padding-block: 15px; align-items: flex-start; }
   .brand { max-width: 200px; font-size: 13px; }
   .brand img { width: 40px; height: 40px; }
+
+  /* HERO SECTION FIX */
   .hero {
-    min-height: calc(100svh - 102px);
-    padding: 32px 0 28px;
-    display: grid;
-    background-image: url("assets/herosection.png");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-  }
-  .hero-grid {
-    width: min(1160px, calc(100% - 32px));
-    margin-inline: auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: stretch;
     position: relative;
+    overflow: hidden;
+    height: 100svh; /* Exact screen height */
+    padding: 0;
+    display: block;
+    background-color: var(--paper);
   }
-  .hero-content {
-    min-width: 0;
-    display: grid;
-    grid-template-rows: minmax(24px, 1fr) auto auto auto auto minmax(32px, 1fr) auto;
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: url("assets/herosection.png"); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     z-index: 1;
   }
-  .hero-content .eyebrow { grid-row: 2; margin: 0 0 22px; text-align: center; font-size: 11px; letter-spacing: .14em; }
-  .hero-content h1 { grid-row: 3; max-width: 560px; margin: 0 auto 24px; text-align: center; font-size: clamp(36px, 9vw, 50px); line-height: 1.12; letter-spacing: -.045em; }
-  .hero-content .hero-copy { grid-row: 4; max-width: 32ch; margin: 0 auto; text-align: center; font-size: 16px; line-height: 1.75; }
-  .hero-content .hero-facts { grid-row: 5; width: min(100%, 340px); margin: 24px auto 0; padding-top: 16px; justify-content: center; gap: 20px; text-align: center; }
-  .hero-content .hero-fact { flex: 1; min-width: 0; }
-  .hero-content .hero-fact strong { font-size: 13px; }
-  .hero-content .hero-fact span { font-size: 9px; }
-  .hero-content .actions { grid-row: 7; width: 100%; margin: 0; padding: 0; justify-content: center; }
-  .hero-content .actions .button { flex: 1 1 145px; min-width: 0; padding-inline: 12px; }
+
+  /* Mobile/tablet hero fix (max-width: 1024px). Desktop and laptop are untouched. Set --header-h to match your real header height. */
+@media (max-width: 1024px) {
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    height: calc(100svh - var(--header-h, 72px));
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero .hero-grid {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .hero-art { display: none; }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: clamp(16px, 4svh, 40px) clamp(16px, 5vw, 32px) clamp(16px, 3svh, 28px);
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .hero-content .eyebrow {
+    margin: auto 0 14px 0;
+    font-size: clamp(10px, 2.8vw, 13px);
+    letter-spacing: .14em;
+    text-align: center;
+  }
+  
+  .hero-content h1 {
+    margin: 0 0 20px 0;
+    font-size: clamp(30px, 8.5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -.04em;
+    text-align: center;
+  }
+  
+  .hero-content .hero-copy {
+    margin: 0 auto 32px;
+    font-size: clamp(14px, 3.8vw, 18px);
+    line-height: 1.6;
+    max-width: 34ch;
+    text-align: center;
+  }
+  
+  .hero-content .hero-facts {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: clamp(12px, 4vw, 28px);
+    width: 100%;
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+
+  .hero-content .hero-fact {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .hero-content .hero-fact strong {
+    display: block;
+    font-size: clamp(13px, 3.6vw, 17px);
+  }
+
+  .hero-content .hero-fact span {
+    display: block;
+    font-size: clamp(9px, 2.4vw, 13px);
+    line-height: 1.4;
+  }
+
+  .hero-content .actions {
+    order: 2;
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 3vw, 16px);
+    width: 100%;
+    padding-top: clamp(16px, 3svh, 28px);
+    padding-bottom: 70px;
+  }
+
+  .hero-content .actions .button {
+    flex: 1;
+    max-width: 200px;
+    padding: clamp(12px, 2svh, 16px) clamp(10px, 3vw, 20px);
+    font-size: clamp(13px, 3.6vw, 16px);
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 340px) {
+  .hero-content .actions { flex-direction: column; align-items: center; }
+  .hero-content .actions .button { width: 100%; max-width: 260px; }
+}
+
+/* ===== END HERO FIX ===== */
+
   .home-main > section:not(.hero) { padding: 64px 0; }
   .product-grid, .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-grid .product-card { grid-column: auto; min-height: 190px; }
