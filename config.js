@@ -105,7 +105,7 @@ window.ETHYLOX_CONFIG = {
         {
           name: "Endosurgery Products",
           description: "Harmonic Technology.",
-          image: "assets/endo.jpg",
+          image: "assets/endo.png",
           alt: "Endosurgery products and harmonic technology"
         }
       ]

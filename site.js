@@ -81,19 +81,17 @@
       card.setAttribute("aria-label", `View ${product.name} inventory`);
       card.style.setProperty("--card-accent", product.accent);
 
-            // Category card art (top-right image)
-            const art = document.createElement("img");
-            const artSrc = safeUrl(product.image, "image");
-      
-            if (artSrc) {
-              art.className = "product-card-art";
-              art.src = artSrc;
-              art.alt = "";
-              art.setAttribute("aria-hidden", "true");
-              art.loading = "lazy";
-              card.append(art);
-            }
-      
+      const art = document.createElement("img");
+      const artSrc = safeUrl(product.image, "image");
+
+      if (artSrc) {
+        art.className = "product-card-art";
+        art.src = artSrc;
+        art.alt = "";
+        art.setAttribute("aria-hidden", "true");
+        art.loading = "lazy";
+        card.append(art);
+      }
 
       const heading = document.createElement("h3");
       heading.textContent = product.name;
@@ -110,6 +108,10 @@
     const grid = document.querySelector("#showcase-grid");
     if (!grid) return;
 
+    const modal = document.getElementById("image-modal");
+    const modalImg = document.getElementById("modal-image");
+    const closeBtn = document.querySelector(".modal-close");
+
     config.home.gallery.items.forEach((item) => {
       const article = document.createElement("article");
       article.className = "showcase-item";
@@ -118,6 +120,17 @@
       image.src = safeUrl(item.image, "image");
       image.alt = item.alt || item.name;
       image.loading = "lazy";
+      image.style.cursor = "zoom-in";
+
+      if (modal && modalImg) {
+        image.addEventListener("click", () => {
+          modalImg.src = image.src;
+          modalImg.alt = image.alt;
+          modal.classList.add("active");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        });
+      }
 
       const heading = document.createElement("h3");
       heading.textContent = item.name;
@@ -128,6 +141,28 @@
       article.append(image, heading, description);
       grid.append(article);
     });
+
+    if (modal && closeBtn) {
+      const closeModal = () => {
+        modal.classList.remove("active");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      };
+
+      closeBtn.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("active")) {
+          closeModal();
+        }
+      });
+    }
   }
 
   function renderCompany() {
@@ -231,7 +266,6 @@
     targets.forEach((element) => observer.observe(element));
     document.documentElement.classList.add("motion-ready");
   }
-
 
   window.scrollTo(0, 0);
 
