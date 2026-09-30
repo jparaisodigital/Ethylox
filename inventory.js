@@ -302,72 +302,72 @@
     return;
   }
 
-  const callbackName = "ethyloxInventoryReceive";
-  const CACHE_KEY_DATA = "ethylox_inventory_data";
-  const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
-  const CACHE_DURATION = 5 * 60 * 1000;
-
-  const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
-  const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
-
-  if (cachedDataStr && cachedTimeStr) {
-    const cachedTime = parseInt(cachedTimeStr, 10);
-    if (Date.now() - cachedTime < CACHE_DURATION) {
-      try {
-        const cachedData = JSON.parse(cachedDataStr);
-        showInventory(cachedData);
-      } catch (e) {
-        console.error("Cache parse error", e);
+    const callbackName = "ethyloxInventoryReceive";
+    const CACHE_KEY_DATA = "ethylox_inventory_data";
+    const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
+    const CACHE_DURATION = 5 * 60 * 1000;
+  
+    const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
+    const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
+    let hasValidCache = false;
+  
+    // 1. Check Cache
+    if (cachedDataStr && cachedTimeStr) {
+      const cachedTime = parseInt(cachedTimeStr, 10);
+      if (Date.now() - cachedTime < CACHE_DURATION) {
+        try {
+          const cachedData = JSON.parse(cachedDataStr);
+          showInventory(cachedData);
+          hasValidCache = true; 
+        } catch (e) {
+          console.error("Cache parse error", e);
+          localStorage.removeItem(CACHE_KEY_DATA);
+          localStorage.removeItem(CACHE_KEY_TIME);
+        }
       }
     }
-  }
-
-  const script = document.createElement("script");
-  let finished = false;
-
-  const timeout = window.setTimeout(() => {
-    if (finished) return;
-
-    finished = true;
-    script.remove();
-    delete window[callbackName];
-
-    if (!cachedDataStr) {
-      status.textContent =
-        "Inventory is taking too long to load. Please refresh or contact sales.";
-    }
-  }, 25000);
-
-  window[callbackName] = (data) => {
-    if (finished) return;
-
-    finished = true;
-    window.clearTimeout(timeout);
-    script.remove();
-    delete window[callbackName];
-
-    if (data && data.success) {
-      localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
-      localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
-    }
-
-    showInventory(data);
-  };
-
-  script.onerror = () => {
-    if (finished) return;
-
-    finished = true;
-    window.clearTimeout(timeout);
-    script.remove();
-    delete window[callbackName];
-
-    if (!cachedDataStr) {
-      status.textContent =
-        "Unable to load inventory. Please refresh or contact sales.";
-    }
-  };
-
-  script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
-  document.head.append(script);
-})();
+  
+    // 2. Background Fetch
+    const script = document.createElement("script");
+    let finished = false;
+  
+    const timeout = window.setTimeout(() => {
+      if (finished) return;
+      finished = true;
+      script.remove();
+      delete window[callbackName];
+  
+      if (!hasValidCache) {
+        status.textContent = "Inventory is taking too long to load. Please refresh or contact sales.";
+      }
+    }, 15000); 
+  
+    window[callbackName] = (data) => {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(timeout);
+      script.remove();
+      delete window[callbackName];
+  
+      if (data && data.success) {
+        localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
+        localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
+      }
+      showInventory(data);
+    };
+  
+    script.onerror = () => {
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(timeout);
+      script.remove();
+      delete window[callbackName];
+  
+      if (!hasValidCache) {
+        status.textContent = "Unable to load inventory. Please refresh or contact sales.";
+      }
+    };
+  
+    script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
+    document.head.append(script);
+  })();
