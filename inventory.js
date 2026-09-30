@@ -227,6 +227,6 @@
     }
   };
 
-  script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
+  script.src = `${endpoint}?prefix=${callbackName}&category=${encodeURIComponent(category.name)}&_=${Date.now()}`;
   document.head.append(script);
 })();
