@@ -9,15 +9,54 @@
   const tableBody = document.querySelector("#inventory-table-body");
   const mobileList = document.querySelector("#inventory-mobile-list");
   const tableWrap = document.querySelector(".inventory-table-wrap");
+  const picker = document.querySelector("#category-picker");
 
   if (!config || !title || !status || !results || !sizeFilter || !tableBody || !mobileList || !tableWrap) return;
 
   const requestedCategory = new URLSearchParams(window.location.search).get("category")?.trim();
   const category = config.home.products.find((product) => product.name.toLowerCase() === requestedCategory?.toLowerCase());
 
+  function renderCategoryPicker() {
+    if (!picker) return;
+    const fragment = document.createDocumentFragment();
+    config.home.products.forEach((product) => {
+      const card = document.createElement("a");
+      card.className = "product-card";
+      card.href = `inventory.html?category=${encodeURIComponent(product.name)}`;
+      card.setAttribute("aria-label", `View ${product.name} inventory`);
+      card.style.setProperty("--card-accent", product.accent);
+
+      if (typeof product.image === "string" && product.image.startsWith("assets/")) {
+        const art = document.createElement("img");
+        art.className = "product-card-art";
+        art.src = product.image;
+        art.alt = "";
+        art.setAttribute("aria-hidden", "true");
+        art.loading = "lazy";
+        card.append(art);
+      }
+
+      const heading = document.createElement("h3");
+      heading.textContent = product.name;
+      const label = document.createElement("small");
+      label.textContent = product.category;
+      card.append(heading, label);
+      fragment.append(card);
+    });
+    picker.replaceChildren(fragment);
+    picker.hidden = false;
+  }
+
   if (!category) {
-    title.textContent = "Category not found";
-    status.textContent = "Choose a category from our product range.";
+    const isInvalid = Boolean(requestedCategory);
+    title.textContent = isInvalid ? "Category not found" : "Full Inventory";
+    status.textContent = isInvalid
+      ? "We couldn't find that category. Choose one from our product range."
+      : "Choose a category to view available items.";
+    document.title = isInvalid
+      ? `Category not found | ${config.brand.name}`
+      : `Full Inventory | ${config.brand.name}`;
+    renderCategoryPicker();
     return;
   }
 

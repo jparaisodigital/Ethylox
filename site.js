@@ -174,6 +174,7 @@
       ".showcase-grid > .showcase-item",
       ".overview-header > *, .overview-content > #company-paragraphs > p, .values-grid-integrated > .value-card-integrated",
       ".faq-list > .faq-item",
+      ".inventory-ticker", 
       ".home-contact .inquiry-copy",
       ".contact-main > .container > .eyebrow, .contact-main > .container > h1, .contact-main > .container > .contact-intro",
       ".contact-grid > .contact-card",
@@ -252,35 +253,65 @@
     if (pageLoader) pageLoader.classList.remove('active');
   });
 
-  if (page === "home") {
-    const endpoint = config.inventory?.endpoint;
-    if (endpoint?.startsWith("https://script.google.com/macros/s/")) {
-      const CACHE_KEY_DATA = "ethylox_inventory_data";
-      const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
-      const CACHE_DURATION = 5 * 60 * 1000;
-      const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
-      const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
-      let needsFetch = true;
-      if (cachedDataStr && cachedTimeStr) {
-        const cachedTime = parseInt(cachedTimeStr, 10);
-        if (Date.now() - cachedTime < CACHE_DURATION) needsFetch = false;
-      }
-      if (needsFetch) {
-        const callbackName = "ethyloxInventoryReceive";
-        const script = document.createElement("script");
-        window[callbackName] = (data) => {
-          if (data && data.success) {
-            localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
-            localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
-          }
-          script.remove();
-          delete window[callbackName];
+    // Silent Prefetch & Inventory Ticker
+    if (page === "home") {
+      const endpoint = config.inventory?.endpoint;
+      if (endpoint?.startsWith("https://script.google.com/macros/s/")) {
+        const CACHE_KEY_DATA = "ethylox_inventory_data";
+        const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
+        const CACHE_DURATION = 5 * 60 * 1000;
+        const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
+        const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
+        let needsFetch = true;
+  
+        const renderTicker = (data) => {
+          const track = document.getElementById('ticker-track');
+          if (!track || !data || !data.products) return;
+  
+          const items = [...data.products].sort(() => 0.5 - Math.random()).slice(0, 8);
+          let html = '';
+          
+          items.forEach(item => {
+            html += `
+              <span class="ticker-item">
+                <strong>${item.description || item.category}</strong> 
+                Size: ${item.size || '—'} 
+                <span class="price">${item.pricePHP || 'Ask Sales'}</span>
+              </span>
+              <span class="ticker-separator">•</span>
+            `;
+          });
+  
+          track.innerHTML = html + html;
         };
-        script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
-        document.head.append(script);
+  
+        if (cachedDataStr && cachedTimeStr) {
+          const cachedTime = parseInt(cachedTimeStr, 10);
+          if (Date.now() - cachedTime < CACHE_DURATION) {
+            try {
+              renderTicker(JSON.parse(cachedDataStr));
+              needsFetch = false;
+            } catch (e) { console.error(e); }
+          }
+        }
+  
+        if (needsFetch) {
+          const callbackName = "ethyloxInventoryReceive";
+          const script = document.createElement("script");
+          window[callbackName] = (data) => {
+            if (data && data.success) {
+              localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
+              localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
+              renderTicker(data);
+            }
+            script.remove();
+            delete window[callbackName];
+          };
+          script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
+          document.head.append(script);
+        }
       }
     }
-  }
 
   window.addEventListener('pageshow', (event) => {
     if (event.persisted && pageLoader) {
