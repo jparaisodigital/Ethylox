@@ -245,8 +245,10 @@
       ".hero-content > .eyebrow, .hero-content > h1, .hero-content > .hero-copy, .hero-content .actions > .button, .hero-facts > .hero-fact",
       ".section-heading > *, .showcase-heading > *",
       ".product-grid > .product-card",
+      ".quality-header > *, .quality-grid > .quality-item",
       ".showcase-grid > .showcase-item",
       ".overview-header > *, .overview-content > #company-paragraphs > p, .values-grid-integrated > .value-card-integrated",
+      ".faq-list > .faq-item",
       ".home-contact .inquiry-copy",
       ".contact-main > .container > .eyebrow, .contact-main > .container > h1, .contact-main > .container > .contact-intro",
       ".contact-grid > .contact-card",
@@ -289,7 +291,9 @@
     document.documentElement.classList.add("motion-ready");
   }
 
+if (!window.location.hash) {
   window.scrollTo(0, 0);
+}
 
   bindFields();
 
