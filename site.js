@@ -1,14 +1,9 @@
 // Ethylox Main Script
 (function () {
   "use strict";
-
-  // Configuration & Utilities
   const config = window.ETHYLOX_CONFIG;
-  if (!config) {
-    console.error("config.js did not load. Check that it is next to site.js.");
-    return;
-  }
-
+  if (!config) { console.error("config.js did not load."); return; }
+  
   const page = document.body.dataset.page;
   const valueAt = (path) => path.split(".").reduce((item, key) => item?.[key], config);
   const display = (value) => String(value).replaceAll("{email}", config.brand.email);
@@ -22,46 +17,35 @@
     return "";
   }
 
-  // Data Binding
   function bindFields() {
     document.querySelectorAll("[data-text]").forEach((element) => {
       const value = valueAt(element.dataset.text);
-      if (value !== undefined && value !== null) {
-        element.textContent = display(value);
-      }
+      if (value !== undefined && value !== null) element.textContent = display(value);
     });
-
     document.querySelectorAll("[data-image]").forEach((element) => {
       const src = safeUrl(valueAt(element.dataset.image), "image");
       if (src) element.src = src;
     });
-
     document.querySelectorAll("[data-email-link]").forEach((element) => {
       const subjectPath = element.dataset.emailSubject;
       const subject = subjectPath ? valueAt(subjectPath) : "";
       const query = subject ? `?subject=${encodeURIComponent(subject)}` : "";
       element.href = `mailto:${config.brand.email}${query}`;
     });
-
     const description = config[page]?.description;
     const meta = document.querySelector('meta[name="description"]');
-    if (meta && description) {
-      meta.content = description;
-    }
+    if (meta && description) meta.content = description;
   }
 
-  // Render Products
   function renderProducts() {
     const grid = document.querySelector("#product-grid");
     if (!grid) return;
-
     config.home.products.forEach((product) => {
       const card = document.createElement("a");
       card.className = "product-card";
       card.href = `inventory.html?category=${encodeURIComponent(product.name)}`;
       card.setAttribute("aria-label", `View ${product.name} inventory`);
       card.style.setProperty("--card-accent", product.accent);
-
       const art = document.createElement("img");
       const artSrc = safeUrl(product.image, "image");
       if (artSrc) {
@@ -72,7 +56,6 @@
         art.loading = "lazy";
         card.append(art);
       }
-
       const heading = document.createElement("h3");
       heading.textContent = product.name;
       const label = document.createElement("small");
@@ -82,25 +65,20 @@
     });
   }
 
-  // Render Gallery
   function renderGallery() {
     const grid = document.querySelector("#showcase-grid");
     if (!grid) return;
-
     const modal = document.getElementById("image-modal");
     const modalImg = document.getElementById("modal-image");
     const closeBtn = document.querySelector(".modal-close");
-
     config.home.gallery.items.forEach((item) => {
       const article = document.createElement("article");
       article.className = "showcase-item";
-
       const image = document.createElement("img");
       image.src = safeUrl(item.image, "image");
       image.alt = item.alt || item.name;
       image.loading = "lazy";
       image.style.cursor = "zoom-in";
-
       if (modal && modalImg) {
         image.addEventListener("click", () => {
           modalImg.src = image.src;
@@ -110,7 +88,6 @@
           document.body.style.overflow = "hidden";
         });
       }
-
       const heading = document.createElement("h3");
       heading.textContent = item.name;
       const description = document.createElement("p");
@@ -118,7 +95,6 @@
       article.append(image, heading, description);
       grid.append(article);
     });
-
     if (modal && closeBtn) {
       const closeModal = () => {
         modal.classList.remove("active");
@@ -126,16 +102,11 @@
         document.body.style.overflow = "";
       };
       closeBtn.addEventListener("click", closeModal);
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-      });
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("active")) closeModal();
-      });
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("active")) closeModal(); });
     }
   }
 
-  // Render Company Info
   function renderCompany() {
     const paragraphsContainer = document.querySelector("#company-paragraphs");
     if (paragraphsContainer) {
@@ -145,7 +116,6 @@
         paragraphsContainer.append(paragraph);
       });
     }
-
     const valuesContainer = document.querySelector("#company-values");
     if (valuesContainer && config.home.company.values) {
       const icons = {
@@ -154,7 +124,6 @@
         globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
         clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
       };
-
       config.home.company.values.forEach((value) => {
         const card = document.createElement("div");
         card.className = "value-card-integrated";
@@ -165,14 +134,12 @@
     }
   }
 
-  // Render Contact Offices
   function renderOffices() {
     document.querySelectorAll("[data-office]").forEach((card) => {
       const office = config.contact.offices[card.dataset.office];
       if (!office) return;
       const details = card.querySelector(".office-details");
       if (!details) return;
-
       office.details.forEach((item) => {
         const row = document.createElement("div");
         row.className = "detail";
@@ -182,7 +149,6 @@
         const value = document.createElement("span");
         value.className = "detail-value";
         const href = safeUrl(item.href, "href");
-
         if (href) {
           const link = document.createElement("a");
           link.href = href;
@@ -197,11 +163,9 @@
     });
   }
 
-  // Scroll Motion Animation
   function initScrollMotion() {
     if (!("IntersectionObserver" in window)) return;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-
     const groups = [
       ".hero-content > .eyebrow, .hero-content > h1, .hero-content > .hero-copy, .hero-content .actions > .button, .hero-facts > .hero-fact",
       ".section-heading > *, .showcase-heading > *",
@@ -215,7 +179,6 @@
       ".contact-grid > .contact-card",
       ".email-panel, .footer-buyback"
     ];
-
     const targets = [];
     groups.forEach((selector) => {
       document.querySelectorAll(selector).forEach((element, index) => {
@@ -224,46 +187,33 @@
         targets.push(element);
       });
     });
-
     if (!targets.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -8% 0px" }
-    );
-
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
     targets.forEach((element) => observer.observe(element));
     document.documentElement.classList.add("motion-ready");
   }
 
-  // Initialization
-  if (!window.location.hash) {
-    window.scrollTo(0, 0);
-  }
-
+  if (!window.location.hash) window.scrollTo(0, 0);
   bindFields();
-
+  
   if (page === "home") {
     renderProducts();
     renderGallery();
     renderCompany();
     document.title = config.brand.fullName;
   }
-
   if (page === "contact") {
     renderOffices();
     document.title = `Contact Us | ${config.brand.fullName}`;
   }
-
   initScrollMotion();
 
-  // Mobile Menu Logic
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileDropdown = document.querySelector('.mobile-nav-dropdown');
   if (menuToggle && mobileDropdown) {
@@ -279,64 +229,45 @@
     });
   }
 
-  // Unified Page Loader Trigger
   const pageLoader = document.getElementById('page-loader');
   if (pageLoader) {
     const handleNavigation = (e) => {
       const href = e.currentTarget.getAttribute('href');
-      if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) {
-        return;
-      }
-
+      if (href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) return;
       e.preventDefault();
       pageLoader.classList.add('active');
-
       setTimeout(() => {
         window.location.href = href;
-        
-        // Failsafe: if it's a same-page anchor link, hide loader manually
         if (href.includes('#')) {
-          setTimeout(() => {
-            pageLoader.classList.remove('active');
-          }, 600);
+          setTimeout(() => { pageLoader.classList.remove('active'); }, 600);
         }
       }, 800);
     };
-
     document.querySelectorAll('.product-card, .desktop-nav a[href], .mobile-nav a[href]').forEach(el => {
       el.addEventListener('click', handleNavigation);
     });
   }
 
   window.addEventListener('load', () => {
-    if (pageLoader) {
-      pageLoader.classList.remove('active');
-    }
+    if (pageLoader) pageLoader.classList.remove('active');
   });
 
-  // Silent Prefetch for Inventory
   if (page === "home") {
     const endpoint = config.inventory?.endpoint;
     if (endpoint?.startsWith("https://script.google.com/macros/s/")) {
       const CACHE_KEY_DATA = "ethylox_inventory_data";
       const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
       const CACHE_DURATION = 5 * 60 * 1000;
-
       const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
       const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
       let needsFetch = true;
-
       if (cachedDataStr && cachedTimeStr) {
         const cachedTime = parseInt(cachedTimeStr, 10);
-        if (Date.now() - cachedTime < CACHE_DURATION) {
-          needsFetch = false;
-        }
+        if (Date.now() - cachedTime < CACHE_DURATION) needsFetch = false;
       }
-
       if (needsFetch) {
         const callbackName = "ethyloxInventoryReceive";
         const script = document.createElement("script");
-
         window[callbackName] = (data) => {
           if (data && data.success) {
             localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
@@ -345,14 +276,12 @@
           script.remove();
           delete window[callbackName];
         };
-
         script.src = `${endpoint}?prefix=${callbackName}&_=${Date.now()}`;
         document.head.append(script);
       }
     }
   }
 
-  // Back-Forward Cache Fix
   window.addEventListener('pageshow', (event) => {
     if (event.persisted && pageLoader) {
       pageLoader.classList.remove('active');
