@@ -240,9 +240,9 @@
       setTimeout(() => {
         window.location.href = href;
         if (href.includes('#')) {
-          setTimeout(() => { pageLoader.classList.remove('active'); }, 600);
+          setTimeout(() => { pageLoader.classList.remove('active'); }, 250);
         }
-      }, 800);
+      }, 350);
     };
     document.querySelectorAll('.product-card, .desktop-nav a[href], .mobile-nav a[href]').forEach(el => {
       el.addEventListener('click', handleNavigation);

@@ -127,29 +127,6 @@ h1, h2, h3, p { margin-top: 0; }
   opacity: 0.85;
 }
 
-.header-email-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background-color: var(--red);
-  border-radius: 12px;
-  color: var(--white);
-  text-decoration: none;
-  transition: transform 0.3s cubic-bezier(.22, 1, .36, 1), box-shadow 0.3s ease;
-}
-
-.header-email-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-.header-email-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(220, 38, 38, 0.25);
-}
-
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
@@ -843,7 +820,7 @@ h2 {
 }
 
 .contact-main {
-  padding: 85px 0 110px;
+  padding: 85px 0 48px;
 }
 
 .contact-main h1 {
@@ -1048,7 +1025,7 @@ h2 {
   }
   .brand { flex-shrink: 0; }
   .header-right-group { margin-left: auto; gap: 0; display: flex; align-items: center; }
-  .desktop-nav, .header-email-btn { display: none; }
+  .desktop-nav { display: none; }
   .mobile-menu-toggle { display: flex; }
   .overview-grid { grid-template-columns: 1fr; gap: 40px; }
   .overview-left-panel { gap: 30px; }
@@ -1305,21 +1282,8 @@ h2 {
 }
 
 .loader-logo {
-  width: 120px; /* Adjust size kung gusto mo mas malaki/maliit */
+  width: 120px;
   height: auto;
-  animation: breathe 1.8s ease-in-out infinite;
-}
-
-/* Breathing Animation */
-@keyframes breathe {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 1;
-  }
 }
 
 /* Quality Assurance Banner */
