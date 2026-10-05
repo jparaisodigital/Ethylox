@@ -2,7 +2,7 @@
 // Inventory rows are managed in the Google Sheet.
 window.ETHYLOX_CONFIG = {
   brand: {
-    name: "ETHYLOX",
+    name: "ETHYLOX EQUIPMENT CORPORATION",
     fullName: "ETHYLOX EQUIPMENT CORPORATION",
     logo: "assets/ethylox-logo.png",
     email: "sales@ethylox.com"
@@ -75,13 +75,19 @@ window.ETHYLOX_CONFIG = {
         name: "Monocryl / PDS",
         category: "Surgical sutures",
         accent: "#3f8077",
-        image: "assets/monocryl-pds.jpg"   
+        image: "assets/monocryl.jpg"   
       },
       {
         name: "Endosurgery Products",
         category: "Harmonic Technology",
         accent: "#9b5660",
-        image: "assets/endosurgery.jpg"    
+        image: "assets/endo.png"    
+      },
+      {
+        name: "Medical Equipment",
+        category: "Equipment and parts",
+        accent: "#4a7c9b",
+        image: "assets/equip.jpg"
       }
     ],
 
@@ -94,7 +100,7 @@ window.ETHYLOX_CONFIG = {
         {
           name: "Surgical Sutures",
           description: "Suture lines for different clinical needs.",
-          image: "assets/gallery3.png",
+          image: "assets/gallery3.jpg",
           alt: "Surgical sutures and needles"
         },
         {

@@ -452,12 +452,12 @@ h2 {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(24, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
 
 .product-card {
-  grid-column: span 6;        
+  grid-column: auto;    
   min-width: 0;
   min-height: 225px;
   padding: 28px 26px 34px;
@@ -592,10 +592,6 @@ h2 {
   position: relative;
   z-index: 1;
 }
-
-.product-card:nth-child(5) { grid-column: 4 / span 6; }
-.product-card:nth-child(6) { grid-column: 10 / span 6; }
-.product-card:nth-child(7) { grid-column: 16 / span 6; }
 
 .product-card-art {
   position: absolute;

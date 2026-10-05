@@ -69,6 +69,18 @@
 
   let categoryProducts = [];
 
+  const isEndosurgery = category.name === "Endosurgery Products";
+const isEquipment = category.name === "Medical Equipment";
+const variantKey = isEndosurgery ? "color" : isEquipment ? "specification" : "needle";
+const variantLabel = isEndosurgery ? "Color" : isEquipment ? "Specification" : "Needle";
+const priceUnitLabel = isEquipment ? "unit" : "dozen";
+
+const variantHeader = document.querySelectorAll(".inventory-table thead th")[2];
+if (variantHeader) variantHeader.textContent = variantLabel;
+
+const priceHeader = document.querySelector("#inventory-price-header");
+if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price / dozen";
+
   function formatMoney(value, currency) {
     const raw = String(value ?? "").trim();
     if (!raw) return "Ask sales";
@@ -94,7 +106,7 @@
     const row = document.createElement("tr");
     appendCell(row, product.description || category.name, "cell-description");
     appendCell(row, product.size || "—", "cell-size");
-    appendCell(row, product.needle || "—");
+    appendCell(row, product[variantKey] || "—");
     appendCell(row, product.code || "—", "cell-code");
     appendCell(row, formatMoney(product.pricePHP, "PHP"), "cell-price");
     appendCell(row, product.expiryDate || "Ask sales", "cell-expiry");
@@ -126,7 +138,7 @@
     const size = document.createElement("strong");
     size.textContent = `Size ${product.size || "—"}`;
     const needle = document.createElement("span");
-    needle.textContent = ` · ${product.needle || "Needle: ask sales"}`;
+    needle.textContent = ` · ${product[variantKey] || `${variantLabel}: ask sales`}`;
     itemTitle.append(size, needle);
     const meta = document.createElement("span");
     meta.className = "inventory-item-meta";
@@ -134,14 +146,21 @@
     code.textContent = product.code ? `Code ${product.code}` : "Code on inquiry";
     const price = document.createElement("span");
     price.className = "inventory-item-price";
-    price.textContent = `${formatMoney(product.pricePHP, "PHP")} / dozen`;
+    const unitText = isEquipment && product.unit ? product.unit : priceUnitLabel;
+price.textContent = `${formatMoney(product.pricePHP, "PHP")} / ${unitText}`;
     meta.append(code, price);
     summary.append(itemTitle, meta);
     const content = document.createElement("div");
     content.className = "inventory-item-details";
     const detailList = document.createElement("dl");
     addMobileDetail(detailList, "Description", product.description || category.name);
-    addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(product.approxUSD, "USD")}` : "Ask sales");
+addMobileDetail(detailList, variantLabel, product[variantKey] || "Ask sales");
+
+if (isEquipment) {
+  addMobileDetail(detailList, "Unit", product.unit || "Ask sales");
+}
+
+addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(product.approxUSD, "USD")}` : "Ask sales");
     addMobileDetail(detailList, "Expiry date", product.expiryDate || "Ask sales");
     addMobileDetail(detailList, "Availability", product.availability || "Ask sales");
     const link = document.createElement("a");
