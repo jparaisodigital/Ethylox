@@ -1,34 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="assets/ethylox-logo.png">
-    <meta name="description" content="Browse Ethylox product inventory.">
-    <title>Product Inventory | Ethylox</title>
-  
-    <!-- Open Graph / Social Sharing -->
-    <meta property="og:title" content="ETHYLOX EQUIPMENT CORPORATION - Product Inventory">
-    <meta property="og:description" content="Browse available surgical sutures and medical supplies. Confirm pricing and availability with our sales team.">
-    <meta property="og:image" content="https://ethylox.jparaiso-digital.workers.dev/assets/og-image.png">
-    <link rel="preconnect" href="https://script.google.com">
-    <link rel="preconnect" href="https://script.googleusercontent.com">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ethylox.jparaiso-digital.workers.dev">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ETHYLOX EQUIPMENT CORPORATION - Product Inventory">
-    <meta name="twitter:description" content="Browse available surgical sutures and medical supplies.">
-    <meta name="twitter:image" content="https://ethylox.jparaiso-digital.workers.dev/assets/og-image.png">
-  
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="inventory.css">
-  
-    <script src="config.js" defer></script>
-    <script src="site.js" defer></script>
-    <script src="inventory.js" defer></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Product Inventory | ETHYLOX Equipment Corporation</title>
+  <meta
+    name="description"
+    content="Browse ETHYLOX product inventory for surgical sutures, endosurgery products, and medical equipment. Confirm pricing and availability with the sales team."
+  >
+
+  <link rel="icon" type="image/png" href="assets/ethylox-logo.png">
+  <link rel="canonical" href="https://example.com/inventory.html">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Product Inventory | ETHYLOX Equipment Corporation">
+  <meta property="og:description" content="Browse available surgical sutures, endosurgery products, and medical equipment from ETHYLOX.">
+  <meta property="og:image" content="https://example.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/inventory.html">
+  <meta property="og:site_name" content="ETHYLOX Equipment Corporation">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Product Inventory | ETHYLOX Equipment Corporation">
+  <meta name="twitter:description" content="Browse surgical sutures, endosurgery products, and medical equipment inventory.">
+  <meta name="twitter:image" content="https://example.com/assets/og-image.png">
+
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.googleusercontent.com">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "ETHYLOX Product Inventory",
+    "url": "https://example.com/inventory.html",
+    "description": "Browse ETHYLOX product inventory for surgical sutures, endosurgery products, and medical equipment.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ETHYLOX Equipment Corporation",
+      "url": "https://example.com/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="inventory.css">
+
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
+  <script src="inventory.js" defer></script>
+</head>
 
 <body data-page="inventory">
   <header class="site-header">
@@ -78,13 +103,19 @@
         ← All product categories
       </a>
 
-      <div class="inventory-heading">
-        <p class="eyebrow">Product inventory</p>
-        <h1 id="inventory-title">Inventory</h1>
-        <p>
-          Browse currently listed items. Please confirm current pricing
-          and availability with our sales team.
-        </p>
+      <div class="inventory-hero">
+        <div class="inventory-heading">
+          <p class="eyebrow">Product inventory</p>
+          <h1 id="inventory-title">Inventory</h1>
+          <p>
+            Browse currently listed items. Please confirm current pricing
+            and availability with our sales team.
+          </p>
+        </div>
+      
+        <figure class="inventory-image" id="inventory-image" hidden>
+          <img id="inventory-image-src" alt="">
+        </figure>
       </div>
 
       <p
@@ -150,7 +181,13 @@
     <div class="container">
       <p class="footer-buyback">
         <span data-text="home.buyback.text"></span>
-        <a data-email-link data-email-subject="home.buyback.emailSubject" data-text="home.buyback.linkText"></a>
+        <a class="footer-email-link" data-email-link data-email-subject="home.buyback.emailSubject">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 5h16v14H4z"></path>
+            <path d="m4 7 8 6 8-6"></path>
+          </svg>
+          <span data-text="home.buyback.linkText"></span>
+        </a>
       </p>
       © <span data-text="brand.fullName"></span>
     </div>

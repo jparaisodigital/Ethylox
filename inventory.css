@@ -17,9 +17,39 @@
     color: var(--red);
   }
   
+  .inventory-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
+    align-items: start;
+    gap: 36px;
+    margin-bottom: 32px;
+  }
+  
   .inventory-heading {
     max-width: 750px;
-    margin-bottom: 32px;
+    margin-bottom: 0;
+  }
+  
+  .inventory-image {
+    margin: 0;
+    align-self: start;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .inventory-image[hidden] {
+    display: none;
+  }
+  
+  .inventory-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #fff;
+    padding: 18px;
   }
   
   .inventory-heading .eyebrow {
@@ -199,8 +229,27 @@
       margin-bottom: 42px;
     }
   
-    .inventory-heading {
+    .inventory-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
       margin-bottom: 28px;
+    }
+    
+    .inventory-heading {
+      margin-bottom: 0;
+    }
+    
+    .inventory-image {
+      order: 5;
+      width: 100%;
+      margin-top: 34px;
+    }
+    
+    .inventory-image img {
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      padding: 14px;
     }
   
     .inventory-controls {

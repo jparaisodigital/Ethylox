@@ -239,8 +239,28 @@ footer {
 
 .footer-buyback a {
   color: var(--red);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none;
+}
+
+.footer-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+}
+
+.footer-email-link svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateY(1px);
 }
 
 .eyebrow {
@@ -604,6 +624,77 @@ h2 {
   pointer-events: none;
   user-select: none;
   mix-blend-mode: multiply;
+}
+
+.stock-preview {
+  background: var(--paper);
+  padding-top: 72px;
+}
+
+.stock-preview-heading {
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+
+.stock-preview-heading h2 {
+  margin-bottom: 14px;
+}
+
+.stock-preview-heading p:last-child {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.stock-preview-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr;
+  grid-template-rows: repeat(2, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.stock-preview-item {
+  min-width: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.stock-preview-item.is-featured {
+  grid-row: span 2;
+}
+
+.stock-preview-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(.22, 1, .36, 1), filter 300ms ease;
+}
+
+.stock-preview-item span {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, .9);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.stock-preview-item:hover img,
+.stock-preview-item:focus-visible img {
+  transform: scale(1.04);
+  filter: saturate(1.05);
 }
 
 .showcase {
@@ -1201,6 +1292,33 @@ h2 {
   .product-grid .product-card { grid-column: auto; min-height: 190px; }
   .product-grid .product-card:nth-child(7) { min-height: 220px; }
   .product-card::before { margin-bottom: 38px; }
+
+  /* ===== ADD STOCK PREVIEW MOBILE STYLES HERE ===== */
+  .stock-preview {
+    padding-top: 56px;
+  }
+
+  .stock-preview-grid {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+  }
+
+  .stock-preview-item,
+  .stock-preview-item.is-featured {
+    flex: 0 0 82%;
+    grid-row: auto;
+    scroll-snap-align: start;
+  }
+
+  .stock-preview-item img {
+    aspect-ratio: 4 / 3;
+    height: auto;
+    min-height: 0;
+  }
+
   .contact-main { padding: 64px 0 80px; }
   .contact-grid { grid-template-columns: 1fr; }
   .contact-card { min-height: auto; }
@@ -1356,22 +1474,27 @@ h2 {
   padding: 80px 0;
   background: var(--paper);
 }
+
 .faq-list {
   max-width: 800px;
   margin: 0 auto;
   display: grid;
   gap: 16px;
 }
+
 .faq-item {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 6px;
   overflow: hidden;
-  transition: border-color 0.2s ease;
+  transition: border-color 220ms ease, box-shadow 220ms ease;
 }
+
 .faq-item[open] {
   border-color: var(--red);
+  box-shadow: 0 16px 32px rgba(25, 25, 25, .06);
 }
+
 .faq-item summary {
   padding: 20px 24px;
   cursor: pointer;
@@ -1382,33 +1505,73 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 18px;
   user-select: none;
 }
+
 .faq-item summary::-webkit-details-marker {
   display: none;
 }
+
 .faq-item summary::after {
   content: "+";
-  font-size: 22px;
-  font-weight: 400;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
   color: var(--red);
-  transition: transform 0.2s ease;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
 }
+
 .faq-item[open] summary::after {
   transform: rotate(45deg);
 }
+
 .faq-item p {
-  padding: 0 24px 24px;
+  max-height: 0;
+  padding: 0 24px;
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
   font-size: 15px;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-6px);
+  transition:
+    max-height 420ms cubic-bezier(.22, 1, .36, 1),
+    padding-bottom 420ms cubic-bezier(.22, 1, .36, 1),
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.faq-item[open] p {
+  max-height: 260px;
+  padding-bottom: 24px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 760px) {
-  .faq { padding: 56px 0; }
-  .faq-item summary { padding: 18px 20px; font-size: 15px; }
-  .faq-item p { padding: 0 20px 20px; }
+  .faq {
+    padding: 56px 0;
+  }
+
+  .faq-item summary {
+    padding: 18px 20px;
+    font-size: 15px;
+  }
+
+  .faq-item p {
+    padding-inline: 20px;
+  }
+
+  .faq-item[open] p {
+    padding-bottom: 20px;
+  }
 }
 
 .inventory-ticker {

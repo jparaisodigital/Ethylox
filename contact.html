@@ -1,31 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="assets/ethylox-logo.png">
-    <meta name="description" content="Contact Ethylox Trading International Corporation for orders and medical supply inquiries.">
-    <title>Contact Us | Ethylox Trading International Corporation</title>
-  
-    <!-- Open Graph / Social Sharing -->
-    <meta property="og:title" content="Contact ETHYLOX EQUIPMENT CORPORATION">
-    <meta property="og:description" content="For product inquiries, orders, and availability. Contact our sales team in the Philippines or California, USA.">
-    <meta property="og:image" content="https://ethylox.jparaiso-digital.workers.dev/assets/og-image.png">
-    <link rel="preconnect" href="https://script.google.com">
-    <link rel="preconnect" href="https://script.googleusercontent.com">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ethylox.jparaiso-digital.workers.dev">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Contact ETHYLOX EQUIPMENT CORPORATION">
-    <meta name="twitter:description" content="For product inquiries, orders, and availability. Contact our sales team.">
-    <meta name="twitter:image" content="https://ethylox.jparaiso-digital.workers.dev/assets/og-image.png">
-  
-    <link rel="stylesheet" href="styles.css">
-    <script src="config.js" defer></script>
-    <script src="site.js" defer></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact ETHYLOX Equipment Corporation | Medical Supplies Inquiries</title>
+  <meta
+    name="description"
+    content="Contact ETHYLOX Equipment Corporation for surgical sutures, medical equipment, orders, product availability, and sales inquiries."
+  >
+
+  <link rel="icon" type="image/png" href="assets/ethylox-logo.png">
+  <link rel="canonical" href="https://example.com/contact.html">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Contact ETHYLOX Equipment Corporation">
+  <meta property="og:description" content="Contact ETHYLOX for surgical sutures, medical equipment, product inquiries, orders, and availability.">
+  <meta property="og:image" content="https://example.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/contact.html">
+  <meta property="og:site_name" content="ETHYLOX Equipment Corporation">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact ETHYLOX Equipment Corporation">
+  <meta name="twitter:description" content="Contact ETHYLOX for medical supplies, orders, product inquiries, and availability.">
+  <meta name="twitter:image" content="https://example.com/assets/og-image.png">
+
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.googleusercontent.com">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact ETHYLOX Equipment Corporation",
+    "url": "https://example.com/contact.html",
+    "about": {
+      "@type": "Organization",
+      "name": "ETHYLOX Equipment Corporation",
+      "email": "sales@ethylox.com",
+      "telephone": "+63-917-895-8209"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="site.js" defer></script>
+</head>
 
 <body data-page="contact">
   <header class="site-header">
@@ -113,7 +138,13 @@
     <div class="container">
       <p class="footer-buyback">
         <span data-text="home.buyback.text"></span>
-        <a data-email-link data-email-subject="home.buyback.emailSubject" data-text="home.buyback.linkText"></a>
+        <a class="footer-email-link" data-email-link data-email-subject="home.buyback.emailSubject">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 5h16v14H4z"></path>
+            <path d="m4 7 8 6 8-6"></path>
+          </svg>
+          <span data-text="home.buyback.linkText"></span>
+        </a>
       </p>
       © <span data-text="brand.fullName"></span>
     </div>

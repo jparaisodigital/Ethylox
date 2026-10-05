@@ -65,6 +65,47 @@
     });
   }
 
+  function openImageModal(src, alt) {
+    const modal = document.getElementById("image-modal");
+    const modalImg = document.getElementById("modal-image");
+
+    if (!modal || !modalImg) return;
+
+    modalImg.src = src;
+    modalImg.alt = alt;
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function renderStockPreview() {
+    const grid = document.querySelector("#stock-preview-grid");
+    if (!grid || !config.home.stockPreview?.items) return;
+
+    config.home.stockPreview.items.forEach((item, index) => {
+      const src = safeUrl(item.image, "image");
+      if (!src) return;
+
+      const button = document.createElement("button");
+      button.className = index === 0 ? "stock-preview-item is-featured" : "stock-preview-item";
+      button.type = "button";
+      button.setAttribute("aria-label", "View stock preview image");
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = item.alt || "Sample stock preview";
+      image.loading = "lazy";
+
+      const label = document.createElement("span");
+      label.textContent = "Sample stock photo";
+
+      button.append(image, label);
+      button.addEventListener("click", () => openImageModal(image.src, image.alt));
+
+      grid.append(button);
+    });
+  }
+
   function renderGallery() {
     const grid = document.querySelector("#showcase-grid");
     if (!grid) return;
@@ -81,11 +122,7 @@
       image.style.cursor = "zoom-in";
       if (modal && modalImg) {
         image.addEventListener("click", () => {
-          modalImg.src = image.src;
-          modalImg.alt = image.alt;
-          modal.classList.add("active");
-          modal.setAttribute("aria-hidden", "false");
-          document.body.style.overflow = "hidden";
+          openImageModal(image.src, image.alt);
         });
       }
       const heading = document.createElement("h3");
@@ -97,6 +134,7 @@
     });
     if (modal && closeBtn) {
       const closeModal = () => {
+        document.activeElement?.blur();
         modal.classList.remove("active");
         modal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
@@ -172,6 +210,7 @@
       ".product-grid > .product-card",
       ".quality-header > *, .quality-grid > .quality-item",
       ".showcase-grid > .showcase-item",
+      ".stock-preview-heading > *, .stock-preview-grid > .stock-preview-item",
       ".overview-header > *, .overview-content > #company-paragraphs > p, .values-grid-integrated > .value-card-integrated",
       ".faq-list > .faq-item",
       ".inventory-ticker", 
@@ -206,6 +245,7 @@
   if (page === "home") {
     renderProducts();
     renderGallery();
+    renderStockPreview();
     renderCompany();
     document.title = config.brand.fullName;
   }
@@ -257,8 +297,8 @@
     if (page === "home") {
       const endpoint = config.inventory?.endpoint;
       if (endpoint?.startsWith("https://script.google.com/macros/s/")) {
-        const CACHE_KEY_DATA = "ethylox_inventory_data";
-        const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
+        const CACHE_KEY_DATA = "ethylox_inventory_all_data";
+        const CACHE_KEY_TIME = "ethylox_inventory_all_timestamp";
         const CACHE_DURATION = 5 * 60 * 1000;
         const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
         const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);

@@ -10,6 +10,8 @@
   const mobileList = document.querySelector("#inventory-mobile-list");
   const tableWrap = document.querySelector(".inventory-table-wrap");
   const picker = document.querySelector("#category-picker");
+  const inventoryImage = document.querySelector("#inventory-image");
+  const inventoryImageSrc = document.querySelector("#inventory-image-src");
 
   if (!config || !title || !status || !results || !sizeFilter || !tableBody || !mobileList || !tableWrap) return;
 
@@ -61,9 +63,20 @@
   }
 
   title.textContent = category.name;
-  document.title = `${category.name} Inventory | ${config.brand.name}`;
-  tableWrap.style.setProperty("--inventory-accent", category.accent);
-  mobileList.style.setProperty("--inventory-accent", category.accent);
+document.title = `${category.name} Inventory | ${config.brand.name}`;
+tableWrap.style.setProperty("--inventory-accent", category.accent);
+mobileList.style.setProperty("--inventory-accent", category.accent);
+
+if (
+  inventoryImage &&
+  inventoryImageSrc &&
+  typeof category.image === "string" &&
+  category.image.startsWith("assets/")
+) {
+  inventoryImageSrc.src = category.image;
+  inventoryImageSrc.alt = `${category.name} product reference`;
+  inventoryImage.hidden = false;
+}
   const meta = document.querySelector('meta[name="description"]');
   if (meta) meta.content = `Browse available ${category.name} products from Ethylox.`;
 
@@ -225,27 +238,40 @@ addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(p
   }
 
   const callbackName = "ethyloxInventoryReceive";
-  const CACHE_KEY_DATA = "ethylox_inventory_data";
-  const CACHE_KEY_TIME = "ethylox_inventory_timestamp";
+  const ALL_CACHE_KEY_DATA = "ethylox_inventory_all_data";
+  const ALL_CACHE_KEY_TIME = "ethylox_inventory_all_timestamp";
+  const CATEGORY_CACHE_KEY_DATA = `ethylox_inventory_category_${category.name.toLowerCase()}`;
+  const CATEGORY_CACHE_KEY_TIME = `ethylox_inventory_category_${category.name.toLowerCase()}_timestamp`;
   const CACHE_DURATION = 5 * 60 * 1000;
 
-  const cachedDataStr = localStorage.getItem(CACHE_KEY_DATA);
-  const cachedTimeStr = localStorage.getItem(CACHE_KEY_TIME);
-  let hasValidCache = false;
+  function getFreshCache(dataKey, timeKey) {
+    const cachedDataStr = localStorage.getItem(dataKey);
+    const cachedTimeStr = localStorage.getItem(timeKey);
 
-  if (cachedDataStr && cachedTimeStr) {
+    if (!cachedDataStr || !cachedTimeStr) return null;
+
     const cachedTime = parseInt(cachedTimeStr, 10);
-    if (Date.now() - cachedTime < CACHE_DURATION) {
-      try {
-        const cachedData = JSON.parse(cachedDataStr);
-        showInventory(cachedData);
-        hasValidCache = true;
-      } catch (e) {
-        console.error("Cache parse error", e);
-        localStorage.removeItem(CACHE_KEY_DATA);
-        localStorage.removeItem(CACHE_KEY_TIME);
-      }
+    if (Date.now() - cachedTime >= CACHE_DURATION) return null;
+
+    try {
+      return JSON.parse(cachedDataStr);
+    } catch (e) {
+      localStorage.removeItem(dataKey);
+      localStorage.removeItem(timeKey);
+      return null;
     }
+  }
+
+  const allCachedData = getFreshCache(ALL_CACHE_KEY_DATA, ALL_CACHE_KEY_TIME);
+  if (allCachedData) {
+    showInventory(allCachedData);
+    return;
+  }
+
+  const categoryCachedData = getFreshCache(CATEGORY_CACHE_KEY_DATA, CATEGORY_CACHE_KEY_TIME);
+  if (categoryCachedData) {
+    showInventory(categoryCachedData);
+    return;
   }
 
   const script = document.createElement("script");
@@ -256,9 +282,7 @@ addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(p
     finished = true;
     script.remove();
     delete window[callbackName];
-    if (!hasValidCache) {
-      status.textContent = "Inventory is taking too long to load. Please refresh or contact sales.";
-    }
+    status.textContent = "Inventory is taking too long to load. Please refresh or contact sales.";
   }, 20000);
 
   window[callbackName] = (data) => {
@@ -267,10 +291,12 @@ addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(p
     window.clearTimeout(timeout);
     script.remove();
     delete window[callbackName];
+
     if (data && data.success) {
-      localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(data));
-      localStorage.setItem(CACHE_KEY_TIME, Date.now().toString());
+      localStorage.setItem(CATEGORY_CACHE_KEY_DATA, JSON.stringify(data));
+      localStorage.setItem(CATEGORY_CACHE_KEY_TIME, Date.now().toString());
     }
+
     showInventory(data);
   };
 
@@ -280,9 +306,7 @@ addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(p
     window.clearTimeout(timeout);
     script.remove();
     delete window[callbackName];
-    if (!hasValidCache) {
-      status.textContent = "Unable to load inventory. Please refresh or contact sales.";
-    }
+    status.textContent = "Unable to load inventory. Please refresh or contact sales.";
   };
 
   script.src = `${endpoint}?prefix=${callbackName}&category=${encodeURIComponent(category.name)}&_=${Date.now()}`;

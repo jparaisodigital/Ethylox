@@ -63,7 +63,7 @@ window.ETHYLOX_CONFIG = {
         name: "Chromic",
         category: "Surgical sutures",
         accent: "#888235",
-        image: "assets/chromic.jpg"         
+        image: "assets/chromic.png"         
       },
       {
         name: "Silk and Plain",
@@ -114,6 +114,46 @@ window.ETHYLOX_CONFIG = {
           description: "Harmonic Technology.",
           image: "assets/endo.png",
           alt: "Endosurgery products and harmonic technology"
+        }
+      ]
+    },
+
+    stockPreview: {
+      eyebrow: "Available Stock Preview",
+      heading: "A look at available and past stock.",
+      description: "Sample inventory photos for reference only. Product availability may vary, so please contact sales to confirm exact items.",
+      items: [
+        {
+          image: "assets/products/random1.jpg",
+          alt: "Sample boxed medical stock"
+        },
+        {
+          image: "assets/products/random2.jpg",
+          alt: "Sample surgical suture stock"
+        },
+        {
+          image: "assets/products/random3.jpg",
+          alt: "Sample medical supply boxes"
+        },
+        {
+          image: "assets/products/random4.jpg",
+          alt: "Sample inventory photo"
+        },
+        {
+          image: "assets/products/random5.jpg",
+          alt: "Sample boxed sutures"
+        },
+        {
+          image: "assets/products/random6.jpg",
+          alt: "Sample medical product stock"
+        },
+        {
+          image: "assets/products/random7.jpg",
+          alt: "Sample surplus medical inventory"
+        },
+        {
+          image: "assets/products/monocryl1.jpg",
+          alt: "Sample Monocryl stock"
         }
       ]
     },

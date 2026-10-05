@@ -3,24 +3,72 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>ETHYLOX Equipment Corporation | Medical Supplies and Surgical Sutures</title>
+    <meta
+      name="description"
+      content="ETHYLOX Equipment Corporation supplies surgical sutures, medical equipment, and surplus medical supplies for clinics, hospitals, and distributors in the Philippines."
+    >
+  
     <link rel="icon" type="image/png" href="assets/ethylox-logo.png">
-    <meta name="description" content="Ethylox Trading International Corporation — medical supplies and surgical sutures.">
-    <title>Ethylox Trading International Corporation</title>
+    <link rel="canonical" href="https://example.com/">
+  
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#ffffff">
   
     <!-- Open Graph / Social Sharing -->
-    <meta property="og:title" content="ETHYLOX EQUIPMENT CORPORATION - Surplus US Medical Supplies">
-    <meta property="og:description" content="Surgical sutures and medical supplies for clinics, hospitals, and distributors. Established 1978.">
-    <meta property="og:image" content="https://ethylox.jparaiso-digital.workers.dev/assets/og-image.png">
-    <link rel="preconnect" href="https://script.google.com">
-    <link rel="preconnect" href="https://script.googleusercontent.com">
+    <meta property="og:title" content="ETHYLOX Equipment Corporation | Medical Supplies and Surgical Sutures">
+    <meta property="og:description" content="Browse surgical sutures, medical equipment, and medical supply inventory from ETHYLOX Equipment Corporation.">
+    <meta property="og:image" content="https://example.com/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ethylox.jparaiso-digital.workers.dev">
+    <meta property="og:url" content="https://example.com/">
+    <meta property="og:site_name" content="ETHYLOX Equipment Corporation">
+  
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ETHYLOX EQUIPMENT CORPORATION - Surplus US Medical Supplies">
-    <meta name="twitter:description" content="Surgical sutures and medical supplies for clinics, hospitals, and distributors.">
-    <meta name="twitter:image" content="https://ethylox.jparaiso-digital.workers.dev/assets/og-image.png">
+    <meta name="twitter:title" content="ETHYLOX Equipment Corporation | Medical Supplies and Surgical Sutures">
+    <meta name="twitter:description" content="Surgical sutures, medical equipment, and medical supplies for clinics, hospitals, and distributors.">
+    <meta name="twitter:image" content="https://example.com/assets/og-image.png">
+  
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://script.googleusercontent.com">
+  
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ETHYLOX Equipment Corporation",
+      "alternateName": "Ethylox",
+      "url": "https://example.com/",
+      "logo": "https://example.com/assets/ethylox-logo.png",
+      "email": "sales@ethylox.com",
+      "description": "ETHYLOX Equipment Corporation supplies surgical sutures, medical equipment, and medical supplies for clinics, hospitals, and distributors.",
+      "address": [
+        {
+          "@type": "PostalAddress",
+          "addressCountry": "PH",
+          "addressLocality": "Quezon City",
+          "streetAddress": "10 Ricardo St., Roosevelt Avenue",
+          "postalCode": "1105"
+        },
+        {
+          "@type": "PostalAddress",
+          "addressCountry": "US",
+          "addressRegion": "CA",
+          "addressLocality": "Whittier",
+          "streetAddress": "8537 Painter Ave.",
+          "postalCode": "90602"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+63-917-895-8209",
+        "contactType": "sales",
+        "email": "sales@ethylox.com"
+      }
+    }
+    </script>
   
     <link rel="stylesheet" href="styles.css">
     <script src="config.js" defer></script>
@@ -126,6 +174,19 @@
           <p data-text="home.productSection.description"></p>
         </div>
         <div class="product-grid" id="product-grid"></div>
+      </div>
+    </section>
+
+    <!-- 2.5. AVAILABLE STOCK PREVIEW -->
+    <section class="stock-preview" aria-labelledby="stock-preview-title">
+      <div class="container">
+        <div class="stock-preview-heading">
+          <p class="eyebrow" data-text="home.stockPreview.eyebrow"></p>
+          <h2 id="stock-preview-title" data-text="home.stockPreview.heading"></h2>
+          <p data-text="home.stockPreview.description"></p>
+        </div>
+
+        <div class="stock-preview-grid" id="stock-preview-grid"></div>
       </div>
     </section>
 
@@ -264,7 +325,13 @@
     <div class="container">
       <p class="footer-buyback">
         <span data-text="home.buyback.text"></span>
-        <a data-email-link data-email-subject="home.buyback.emailSubject" data-text="home.buyback.linkText"></a>
+        <a class="footer-email-link" data-email-link data-email-subject="home.buyback.emailSubject">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 5h16v14H4z"></path>
+            <path d="m4 7 8 6 8-6"></path>
+          </svg>
+          <span data-text="home.buyback.linkText"></span>
+        </a>
       </p>
       © <span data-text="brand.fullName"></span>
     </div>
