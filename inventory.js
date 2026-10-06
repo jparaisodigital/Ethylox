@@ -63,36 +63,65 @@
   }
 
   title.textContent = category.name;
-document.title = `${category.name} Inventory | ${config.brand.name}`;
-tableWrap.style.setProperty("--inventory-accent", category.accent);
-mobileList.style.setProperty("--inventory-accent", category.accent);
+  document.title = `${category.name} Inventory | ${config.brand.name}`;
+  tableWrap.style.setProperty("--inventory-accent", category.accent);
+  mobileList.style.setProperty("--inventory-accent", category.accent);
 
-if (
-  inventoryImage &&
-  inventoryImageSrc &&
-  typeof category.image === "string" &&
-  category.image.startsWith("assets/")
-) {
-  inventoryImageSrc.src = category.image;
-  inventoryImageSrc.alt = `${category.name} product reference`;
-  inventoryImage.hidden = false;
-}
+  if (
+    inventoryImage &&
+    inventoryImageSrc &&
+    typeof category.image === "string" &&
+    category.image.startsWith("assets/")
+  ) {
+    inventoryImageSrc.src = category.image;
+    inventoryImageSrc.alt = `${category.name} product reference`;
+    inventoryImage.hidden = false;
+  }
   const meta = document.querySelector('meta[name="description"]');
   if (meta) meta.content = `Browse available ${category.name} products from Ethylox.`;
 
   let categoryProducts = [];
 
+  const inventoryImageModal = document.querySelector("#inventory-image-modal");
+  const inventoryImageClose = document.querySelector(".inventory-image-modal-close");
+  const inventoryImageModalSrc = document.querySelector("#inventory-image-modal-src");
+
+  function closeInventoryImage() {
+    if (!inventoryImageModal || !inventoryImageModalSrc) return;
+
+    inventoryImageModal.classList.remove("active");
+    inventoryImageModal.setAttribute("aria-hidden", "true");
+    inventoryImageModalSrc.src = "";
+    document.body.style.overflow = "";
+  }
+
+  if (inventoryImageModal && inventoryImageClose) {
+    inventoryImageClose.addEventListener("click", closeInventoryImage);
+
+    inventoryImageModal.addEventListener("click", (event) => {
+      if (event.target === inventoryImageModal) closeInventoryImage();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && inventoryImageModal.classList.contains("active")) {
+        closeInventoryImage();
+      }
+    });
+  }
+
   const isEndosurgery = category.name === "Endosurgery Products";
-const isEquipment = category.name === "Medical Equipment";
-const variantKey = isEndosurgery ? "color" : isEquipment ? "specification" : "needle";
-const variantLabel = isEndosurgery ? "Color" : isEquipment ? "Specification" : "Needle";
-const priceUnitLabel = isEquipment ? "unit" : "dozen";
+  const isEquipment = category.name === "Medical Equipment";
+  const variantKey = isEndosurgery ? "color" : isEquipment ? "specification" : "needle";
+  const variantLabel = isEndosurgery ? "Color" : isEquipment ? "Specification" : "Needle";
+  const priceUnitLabel = isEquipment ? "unit" : "dozen";
 
-const variantHeader = document.querySelectorAll(".inventory-table thead th")[2];
-if (variantHeader) variantHeader.textContent = variantLabel;
+  const variantHeader = document.querySelectorAll(".inventory-table thead th")[2];
+  if (variantHeader) variantHeader.textContent = variantLabel;
 
-const priceHeader = document.querySelector("#inventory-price-header");
-if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price / dozen";
+  const priceHeader = document.querySelector("#inventory-price-header");
+  if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price / dozen";
+  const pictureHeader = document.querySelector("#inventory-picture-header");
+  if (pictureHeader && isEndosurgery) pictureHeader.hidden = false;
 
   function formatMoney(value, currency) {
     const raw = String(value ?? "").trim();
@@ -115,6 +144,66 @@ if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price
     return cell;
   }
 
+  function imageUrl(value) {
+    const raw = String(value ?? "").trim();
+    if (!raw) return "";
+
+    const driveFileMatch = raw.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+    if (driveFileMatch) {
+      return `https://drive.google.com/thumbnail?id=${driveFileMatch[1]}&sz=w240`;
+    }
+
+    const driveIdMatch = raw.match(/[?&]id=([^&]+)/);
+    if (driveIdMatch) {
+      return `https://drive.google.com/thumbnail?id=${driveIdMatch[1]}&sz=w240`;
+    }
+
+    if (/^https:\/\//i.test(raw)) return raw;
+
+    return "";
+  }
+
+  function openInventoryImage(src, alt) {
+    const modal = document.querySelector("#inventory-image-modal");
+    const modalImg = document.querySelector("#inventory-image-modal-src");
+
+    if (!modal || !modalImg) return;
+
+    modalImg.src = src;
+    modalImg.alt = alt || "Product reference image";
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function appendPictureCell(row, product) {
+    const cell = document.createElement("td");
+    cell.className = "cell-picture";
+
+    const src = imageUrl(product.picture);
+
+    if (src) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "picture-preview-button";
+      button.setAttribute("aria-label", "View product image");
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = product.description ? `${product.description} product reference` : "Product reference image";
+      img.loading = "lazy";
+
+      button.append(img);
+      button.addEventListener("click", () => openInventoryImage(img.src, img.alt));
+
+      cell.append(button);
+    } else {
+      cell.textContent = "—";
+    }
+
+    row.append(cell);
+  }
+
   function renderTableItem(product) {
     const row = document.createElement("tr");
     appendCell(row, product.description || category.name, "cell-description");
@@ -123,6 +212,11 @@ if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price
     appendCell(row, product.code || "—", "cell-code");
     appendCell(row, formatMoney(product.pricePHP, "PHP"), "cell-price");
     appendCell(row, product.expiryDate || "Ask sales", "cell-expiry");
+
+    if (isEndosurgery) {
+      appendPictureCell(row, product);
+    }
+
     const actionCell = document.createElement("td");
     const link = document.createElement("a");
     link.href = inquiryHref(product);
@@ -160,22 +254,34 @@ if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price
     const price = document.createElement("span");
     price.className = "inventory-item-price";
     const unitText = isEquipment && product.unit ? product.unit : priceUnitLabel;
-price.textContent = `${formatMoney(product.pricePHP, "PHP")} / ${unitText}`;
+    price.textContent = `${formatMoney(product.pricePHP, "PHP")} / ${unitText}`;
     meta.append(code, price);
     summary.append(itemTitle, meta);
     const content = document.createElement("div");
     content.className = "inventory-item-details";
     const detailList = document.createElement("dl");
     addMobileDetail(detailList, "Description", product.description || category.name);
-addMobileDetail(detailList, variantLabel, product[variantKey] || "Ask sales");
+    addMobileDetail(detailList, variantLabel, product[variantKey] || "Ask sales");
 
-if (isEquipment) {
-  addMobileDetail(detailList, "Unit", product.unit || "Ask sales");
-}
+    if (isEquipment) {
+      addMobileDetail(detailList, "Unit", product.unit || "Ask sales");
+    }
 
-addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(product.approxUSD, "USD")}` : "Ask sales");
+    addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(product.approxUSD, "USD")}` : "Ask sales");
     addMobileDetail(detailList, "Expiry date", product.expiryDate || "Ask sales");
     addMobileDetail(detailList, "Availability", product.availability || "Ask sales");
+
+    if (isEndosurgery) {
+      const src = imageUrl(product.picture);
+      if (src) {
+        const image = document.createElement("img");
+        image.className = "inventory-mobile-picture";
+        image.src = src;
+        image.alt = product.description ? `${product.description} product reference` : "Product reference image";
+        image.loading = "lazy";
+        content.append(image);
+      }
+    }
     const link = document.createElement("a");
     link.href = inquiryHref(product);
     link.textContent = "Ask about this item →";
@@ -311,4 +417,5 @@ addMobileDetail(detailList, "Approx. USD", product.approxUSD ? `~${formatMoney(p
 
   script.src = `${endpoint}?prefix=${callbackName}&category=${encodeURIComponent(category.name)}&_=${Date.now()}`;
   document.head.append(script);
+
 })();

@@ -378,3 +378,70 @@
       transition: none;
     }
   }
+
+  .inventory-image-modal-close {
+    position: fixed;
+    top: 22px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: #fff;
+    color: var(--ink);
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .inventory-image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    background: rgba(25, 25, 25, .72);
+  }
+  
+  .inventory-image-modal.active {
+    display: flex;
+  }
+  
+  .inventory-image-modal-card {
+    position: relative;
+    max-width: min(900px, 92vw);
+    max-height: 86vh;
+  }
+  
+  .inventory-image-modal img {
+    display: block;
+    max-width: min(900px, 92vw);
+    max-height: 86vh;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  
+  .inventory-image-modal-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .24);
+  }
+  
+  .inventory-image-modal-close:hover,
+  .inventory-image-modal-close:focus-visible {
+    background: #111;
+  }
