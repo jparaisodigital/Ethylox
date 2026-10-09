@@ -111,6 +111,7 @@
 
   const isEndosurgery = category.name === "Endosurgery Products";
   const isEquipment = category.name === "Medical Equipment";
+  const hasPicture = isEndosurgery || isEquipment;
   const variantKey = isEndosurgery ? "color" : isEquipment ? "specification" : "needle";
   const variantLabel = isEndosurgery ? "Color" : isEquipment ? "Specification" : "Needle";
   const priceUnitLabel = isEquipment ? "unit" : "dozen";
@@ -121,7 +122,7 @@
   const priceHeader = document.querySelector("#inventory-price-header");
   if (priceHeader) priceHeader.textContent = isEquipment ? "Price / unit" : "Price / dozen";
   const pictureHeader = document.querySelector("#inventory-picture-header");
-  if (pictureHeader && isEndosurgery) pictureHeader.hidden = false;
+  if (pictureHeader && hasPicture) pictureHeader.hidden = false;
 
   function formatMoney(value, currency) {
     const raw = String(value ?? "").trim();
@@ -213,7 +214,7 @@
     appendCell(row, formatMoney(product.pricePHP, "PHP"), "cell-price");
     appendCell(row, product.expiryDate || "Ask sales", "cell-expiry");
 
-    if (isEndosurgery) {
+    if (hasPicture) {
       appendPictureCell(row, product);
     }
 
@@ -271,7 +272,7 @@
     addMobileDetail(detailList, "Expiry date", product.expiryDate || "Ask sales");
     addMobileDetail(detailList, "Availability", product.availability || "Ask sales");
 
-    if (isEndosurgery) {
+    if (hasPicture) {
       const src = imageUrl(product.picture);
       if (src) {
         const image = document.createElement("img");
